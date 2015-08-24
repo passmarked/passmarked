@@ -1,0 +1,20 @@
+{
+  "name": "passmarked-cli",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Command line interface for the passmarked.com service",
+  "preferGlobal": true,
+  "bin": {
+    "passmark": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stephan Bothma <stephan@io.co.za>",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "request": "^2.61.0",
+    "validator": "^4.0.5"
+  }
+}
