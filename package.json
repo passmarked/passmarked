@@ -1,20 +1,31 @@
 {
   "name": "passmarked-cli",
   "private": true,
-  "version": "0.1.0",
-  "description": "Command line interface for the passmarked.com service",
+  "version": "0.2.0",
+  "description": "A CLI for the passmarked.com service",
   "preferGlobal": true,
   "bin": {
-    "passmark": "index.js"
+    "passmark": "index"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "istanbul test _mocha -- -R spec",
+    "coverage": "istanbul cover _mocha --report lcovonly -- test -R spec && cat coverage/lcov.info | coveralls && rm -rf coverage"
   },
   "author": "Stephan Bothma <stephan@io.co.za>",
+  "contributors": [
+    "Ant Cosentino <ant@io.co.za>"
+  ],
   "license": "ISC",
   "dependencies": {
     "chalk": "^1.1.1",
-    "request": "^2.61.0",
-    "validator": "^4.0.5"
+    "validator": "^4.0.5",
+    "yargs": "^3.21.0"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "chakram": "^1.0.1",
+    "coveralls": "^2.11.4",
+    "istanbul": "^0.3.18",
+    "mocha": "^2.2.5"
   }
 }
