@@ -1,5 +1,13 @@
+
 # Passmarked CLI
 
-## Installation
+A CLI for the passmarked.com service
 
-`npm install && npm link`
+##### Installation
+
+```
+npm i -g passmarked-cli
+```
+
+##### Usage
+

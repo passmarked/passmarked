@@ -1,0 +1,113 @@
+#!/usr/bin/env node
+
+'use strict';
+
+function displayResults(res) {
+  if (!res.score) {
+    return process.emit('log:error', [
+      _.r_bg('passmarked.com:'),
+      'results not yet available'
+    ]);
+  }
+
+  if (args.j || args.json) {
+    return console.log(JSON.stringify(res, null, '\t'));
+  }
+
+  if (res.score >= 90) {
+    console.log(_.inv('passmarked.com:'), 'overall', _.g_bg(res.score));
+  } else if (res.score >= 75) {
+    console.log(_.inv('passmarked.com:'), 'overall', _.y_bg(res.score));
+  } else {
+    console.log(_.inv('passmarked.com:'), 'overall', _.r_bg(res.score));
+  }
+}
+
+function domainQuery(address, done) {
+  require('http').get({
+    hostname: 'http://api.passmarked.com',
+    path: '/query?domain=' + address
+  }, function(res) {
+    var json = '';
+    res.on('data', function(data) {
+      json += data;
+    }).on('end', function() {
+      return done(null, JSON.parse(json));
+    });
+  }).on('error', function(err) {
+    process.emit('log:error', [
+      _.r_bg('passmarked.com:'),
+      'host unreachable'
+    ]);
+  });
+}
+
+function validate(input, done) {
+  var validator = require('validator');
+  if (!(validator.isIP(input) || validator.isFQDN(input))) {
+    return process.emit('log:error', [
+      _.r_bg('passmarked-cli:'),
+      'please enter either an IP address or a fully-qualified domain name.'
+    ]);
+  }
+  return done(input);
+}
+
+function readFromStdin(done) {
+  var autoCloseTimer = setTimeout(function() {
+    process.stdin.end();
+    process.exit(0);
+  }, 5000), piped = '';
+  process.stdin.setEncoding('utf8');
+  process.stdin.on('data', function(data) {
+    piped += data;
+  }).on('error', function(err) {
+    process.emit('log:error', [
+      _.r_bg('passmarked-cli:'),
+      'error while reading from STDIN'
+    ]);
+  }).on('end', function() {
+    clearTimeout(autoCloseTimer);
+    validate(piped, done);
+  });
+}
+
+function start(address) {
+  domainQuery(address, displayResults);
+}
+
+process.on('log:error', function(err) {
+  console.log(err.join(' '));
+  process.exit(0);
+});
+
+var chalk = require('chalk'), _ = {
+  r: chalk.red,
+  g: chalk.green,
+  y: chalk.yellow,
+  r_bg: chalk.white.bgRed,
+  g_bg: chalk.white.bgGreen,
+  y_bg: chalk.white.bgYellow,
+  inv: chalk.inverse
+}, args = require('yargs')
+  .usage('Usage: $0 [options]')
+  .boolean('j')
+  .alias('d', 'domain')
+  .alias('j', 'json')
+  .alias('h', 'help')
+  .alias('v', 'version')
+  .help('h')
+  .describe('d', 'Specify a fully qualified domain name')
+  .describe('j', 'Coerce output to JSON format')
+  .example('$0 -d http://example.com', 'Run a suite of tests on example.com')
+  .example('$0 -j -d http://example.com', 'Run a suite of tests on example.com with JSON output')
+  .epilog('Copyright 2015 Passmarked Inc.')
+  .argv;
+
+if (args.v || args.version) {
+  console.log(_.inv('passmarked-cli (version 0.1.0)'));
+} else if (!(args._[0] || args.d || args.domain)) {
+  readFromStdin(start);
+} else {
+  validate(args._[0] || args.domain, start);
+}
