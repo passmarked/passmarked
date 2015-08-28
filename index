@@ -30,7 +30,8 @@ function domainQuery(address, done) {
       }).on('end', function() {
         return done(null, {
           address: address,
-          results: JSON.parse(json)
+          results: JSON.parse(json),
+          when: +Date.now()
         });
       });
     }
