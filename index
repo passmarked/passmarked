@@ -48,15 +48,27 @@ function validate(input, done) {
 }
 
 function readFromStdin(done) {
+  var warningTimer = setTimeout(function() {
+    if (args.q) return;
+    console.log(_.inv('passmarked-cli:'), 'expecting data from STDIN - exiting in ten seconds...')
+  }, 1000);
   var autoCloseTimer = setTimeout(function() {
     process.stdin.end();
     process.exit(0);
-  }, 1000 * 60 * 2), piped = '';
+  }, 10000), piped = '';
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', function(data) {
+    if (warningTimer) {
+      clearTimeout(warningTimer);
+      warningTimer = null;
+    }
+    if (autoCloseTimer) {
+      clearTimeout(autoCloseTimer);
+      autoCloseTimer = null;
+    }
     piped += data;
   }).on('end', function() {
-    clearTimeout(autoCloseTimer);
+
     piped = piped.trim();
     var addresses = piped.split(args.d);
     for (var address in addresses) {
