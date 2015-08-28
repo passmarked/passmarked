@@ -48,6 +48,7 @@ function validate(input, done) {
 }
 
 function readFromStdin(done) {
+  var piped = '';
   var warningTimer = setTimeout(function() {
     if (args.q) return;
     console.log(
@@ -58,7 +59,7 @@ function readFromStdin(done) {
   var autoCloseTimer = setTimeout(function() {
     process.stdin.end();
     process.exit(0);
-  }, 10000), piped = '';
+  }, 10000);
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', function(data) {
     if (warningTimer) {
@@ -71,7 +72,6 @@ function readFromStdin(done) {
     }
     piped += data;
   }).on('end', function() {
-
     piped = piped.trim();
     var addresses = piped.split(args.d);
     for (var address in addresses) {
