@@ -1,54 +1,47 @@
 #!/usr/bin/env node
 
-'use strict';
-
-function displayResults(res) {
-  if (!res.score) {
-    return process.emit('log:error', [
-      _.r_bg('passmarked.com:'),
-      'results not yet available'
-    ]);
-  }
-
-  if (args.j || args.json) {
-    return console.log(JSON.stringify(res, null, '\t'));
-  }
-
-  if (res.score >= 90) {
-    console.log(_.inv('passmarked.com:'), 'overall', _.g_bg(res.score));
-  } else if (res.score >= 75) {
-    console.log(_.inv('passmarked.com:'), 'overall', _.y_bg(res.score));
+function displayResults(err, res) {
+  if (!res.results.score) {
+    return process.emit('log:error', [_.r_bg('passmarked.com:'), 'results not yet available']);
+  } else if (args.o) {
+    return out.write((
+      args.j ?
+      (args.p ? JSON.stringify(res, null, '\t') : JSON.stringify(res)) :
+      res.address + ': ' + res.results.score
+    ));
+  } else if (args.j) {
+    return console.log(args.p ? JSON.stringify(res, null, '\t') : JSON.stringify(res));
+  } else if (res.results.score >= 90) {
+    console.log(_.inv('passmarked.com:'), res.address, _.g_bg(res.results.score));
+  } else if (res.results.score >= 75) {
+    console.log(_.inv('passmarked.com:'), res.address, _.y_bg(res.results.score));
   } else {
-    console.log(_.inv('passmarked.com:'), 'overall', _.r_bg(res.score));
+    console.log(_.inv('passmarked.com:'), res.address, _.r_bg(res.results.score));
   }
 }
 
 function domainQuery(address, done) {
-  require('http').get({
-    hostname: 'http://api.passmarked.com',
-    path: '/query?domain=' + address
-  }, function(res) {
-    var json = '';
-    res.on('data', function(data) {
-      json += data;
-    }).on('end', function() {
-      return done(null, JSON.parse(json));
-    });
-  }).on('error', function(err) {
-    process.emit('log:error', [
-      _.r_bg('passmarked.com:'),
-      'host unreachable'
-    ]);
+  http.get(
+    'http://api.passmarked.com/query?domain=' + address,
+    function(res) {
+      var json = '';
+      res.on('data', function(data) {
+        json += data;
+      }).on('end', function() {
+        return done(null, {
+          address: address,
+          results: JSON.parse(json)
+        });
+      });
+    }
+  ).on('error', function(err) {
+    process.emit('log:error', [_.r_bg('passmarked.com:'), 'host unreachable']);
   });
 }
 
 function validate(input, done) {
-  var validator = require('validator');
-  if (!(validator.isIP(input) || validator.isFQDN(input))) {
-    return process.emit('log:error', [
-      _.r_bg('passmarked-cli:'),
-      'please enter either an IP address or a fully-qualified domain name.'
-    ]);
+  if (!(validator.isURL(input) || validator.isIP(input) || validator.isFQDN(input))) {
+    return process.emit('log:error', [_.r_bg('passmarked-cli:'), 'please enter either an IP address or a fully-qualified domain name.']);
   }
   return done(input);
 }
@@ -57,57 +50,96 @@ function readFromStdin(done) {
   var autoCloseTimer = setTimeout(function() {
     process.stdin.end();
     process.exit(0);
-  }, 5000), piped = '';
+  }, 1000 * 60 * 2), piped = '';
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', function(data) {
     piped += data;
-  }).on('error', function(err) {
-    process.emit('log:error', [
-      _.r_bg('passmarked-cli:'),
-      'error while reading from STDIN'
-    ]);
   }).on('end', function() {
     clearTimeout(autoCloseTimer);
-    validate(piped, done);
-  });
+    piped = piped.trim();
+    var addresses = piped.split(args.d);
+    for (var address in addresses) {
+      validate(addresses[address], done);
+    }
+  }).on('error', process.emit.bind(process, 'log:error', [
+    _.r_bg('passmarked-cli:'), 'error while reading from STDIN'
+  ]));
 }
 
 function start(address) {
   domainQuery(address, displayResults);
 }
 
-process.on('log:error', function(err) {
-  console.log(err.join(' '));
-  process.exit(0);
-});
-
 var chalk = require('chalk'), _ = {
   r: chalk.red,
   g: chalk.green,
   y: chalk.yellow,
-  r_bg: chalk.white.bgRed,
-  g_bg: chalk.white.bgGreen,
-  y_bg: chalk.white.bgYellow,
+  r_bg: chalk.black.bgRed,
+  g_bg: chalk.black.bgGreen,
+  y_bg: chalk.black.bgYellow,
   inv: chalk.inverse
 }, args = require('yargs')
-  .usage('Usage: $0 [options]')
+  .usage('Usage: $0 [options] <address>')
   .boolean('j')
-  .alias('d', 'domain')
-  .alias('j', 'json')
+  .boolean('p')
+  .boolean('q')
+  .boolean('v')
+  .string('o')
+  .string('a')
+  .string('d')
+  .default('d', '\n')
+  .default('j', false)
+  .default('p', false)
+  .default('q', false)
+  .default('h', false)
+  .default('v', false)
+  .alias('a', 'address')
+  .alias('d', 'delimiter')
   .alias('h', 'help')
+  .alias('j', 'json')
+  .alias('o', 'output')
+  .alias('p', 'pretty')
+  .alias('q', 'quiet')
   .alias('v', 'version')
   .help('h')
-  .describe('d', 'Specify a fully qualified domain name')
-  .describe('j', 'Coerce output to JSON format')
-  .example('$0 -d http://example.com', 'Run a suite of tests on example.com')
-  .example('$0 -j -d http://example.com', 'Run a suite of tests on example.com with JSON output')
+  .describe('a', 'Address to test')
+  .describe('d', 'Delimiter for address list')
+  .describe('j', 'Output in JSON format')
+  .describe('o', 'Output file path')
+  .describe('p', 'Pretty-print JSON output')
+  .describe('q', 'Suppress output')
+  .describe('v', 'Display program version')
+  .example('$0 http://example.com', 'Test example.com and print results to STDOUT')
+  .example('$0 -a http://example.com', 'Test example.com and print results to STDOUT')
+  .example('$0 -j -a http://example.com', 'Test example.com with JSON output')
+  .example('$0 -j -o results.json -a http://example.com', 'Test example.com with JSON output')
+  .example('$0 -j -o results.json -a http://example.com', 'Test example.com with JSON output')
+  .example('$0 -j -o results.json -d , < sites.txt', 'Test a comma-delimited list of addresses')
+  .example('$0 -j -o results.json < sites.txt', 'Test a newline-delimited list of addresses')
   .epilog('Copyright 2015 Passmarked Inc.')
   .argv;
 
-if (args.v || args.version) {
-  console.log(_.inv('passmarked-cli (version 0.1.0)'));
-} else if (!(args._[0] || args.d || args.domain)) {
-  readFromStdin(start);
-} else {
-  validate(args._[0] || args.domain, start);
-}
+var pkg = require('./package.json');
+var http = require('http');
+var validator = require('validator');
+var path = require('path');
+var fs = require('fs');
+var out = args.o ? fs.createWriteStream(
+  path.resolve(args.o), {flags: 'a'}
+) : false;
+
+process.on('log:error', function(err) {
+  console.error(err.join(' '));
+  process.exit(1);
+});
+
+(function() {
+  'use strict';
+  if (args.v || args.version) {
+    console.log(_.inv('passmarked-cli (version ' + pkg.version + ')'));
+  } else if (!(args._[0] || args.a || args.address)) {
+    readFromStdin(start);
+  } else {
+    validate(args._[0] || args.address, start);
+  }
+}).call(this);
