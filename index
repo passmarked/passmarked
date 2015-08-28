@@ -50,7 +50,10 @@ function validate(input, done) {
 function readFromStdin(done) {
   var warningTimer = setTimeout(function() {
     if (args.q) return;
-    console.log(_.inv('passmarked-cli:'), 'expecting data from STDIN - exiting in ten seconds...')
+    console.log(
+      _.inv('passmarked-cli:'),
+      'expecting data from STDIN - exiting in ten seconds...'
+    );
   }, 1000);
   var autoCloseTimer = setTimeout(function() {
     process.stdin.end();
