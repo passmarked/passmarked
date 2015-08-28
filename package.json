@@ -5,7 +5,7 @@
   "description": "A CLI for the passmarked.com service",
   "preferGlobal": true,
   "bin": {
-    "passmark": "index"
+    "passmarked": "index"
   },
   "scripts": {
     "test": "istanbul test _mocha -- -R spec",
@@ -15,7 +15,7 @@
   "contributors": [
     "Ant Cosentino <ant@io.co.za>"
   ],
-  "license": "APACHEv2",
+  "license": "Apache v2",
   "dependencies": {
     "chalk": "^1.1.1",
     "validator": "^4.0.5",
