@@ -1,7 +1,7 @@
 {
   "name": "passmarked-cli",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A CLI for the passmarked.com service",
   "preferGlobal": true,
   "bin": {
