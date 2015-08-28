@@ -9,13 +9,13 @@
   },
   "scripts": {
     "test": "istanbul test _mocha -- -R spec",
-    "coverage": "istanbul cover _mocha --report lcovonly -- test -R spec && cat coverage/lcov.info | coveralls && rm -rf coverage"
+    "coverage": "istanbul cover _mocha --report lcovonly -- test -R spec && coveralls < coverage/lcov.info && rm -rf coverage"
   },
   "author": "Stephan Bothma <stephan@io.co.za>",
   "contributors": [
     "Ant Cosentino <ant@io.co.za>"
   ],
-  "license": "ISC",
+  "license": "APACHEv2",
   "dependencies": {
     "chalk": "^1.1.1",
     "validator": "^4.0.5",
