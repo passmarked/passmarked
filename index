@@ -12,11 +12,11 @@ function displayResults(err, res) {
   } else if (args.j) {
     return console.log(args.p ? JSON.stringify(res, null, '\t') : JSON.stringify(res));
   } else if (res.results.score >= 90) {
-    console.log(_.inv('passmarked.com:'), res.address, _.g_bg(res.results.score));
+    console.log(_.inv('passmarked-cli:'), res.address, _.g_bg(res.results.score));
   } else if (res.results.score >= 75) {
-    console.log(_.inv('passmarked.com:'), res.address, _.y_bg(res.results.score));
+    console.log(_.inv('passmarked-cli:'), res.address, _.y_bg(res.results.score));
   } else {
-    console.log(_.inv('passmarked.com:'), res.address, _.r_bg(res.results.score));
+    console.log(_.inv('passmarked-cli:'), res.address, _.r_bg(res.results.score));
   }
 }
 
@@ -53,7 +53,7 @@ function readFromStdin(done) {
     if (args.q) return;
     console.log(
       _.inv('passmarked-cli:'),
-      'expecting data from STDIN - exiting in ten seconds...'
+      'expected data on STDIN - exiting in ten seconds...'
     );
   }, 1000);
   var autoCloseTimer = setTimeout(function() {
