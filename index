@@ -120,11 +120,12 @@ var chalk = require('chalk'), _ = {
   .epilog('Copyright 2015 Passmarked Inc.')
   .argv;
 
-var pkg = require('./package.json');
-var http = require('http');
+var fs        = require('fs');
+var pkg       = require('./package.json');
+var path      = require('path');
+var http      = require('http');
 var validator = require('validator');
-var path = require('path');
-var fs = require('fs');
+
 var out = args.o ? fs.createWriteStream(
   path.resolve(args.o), {flags: 'a'}
 ) : false;
