@@ -6,7 +6,7 @@
 [![Dependency Status](https://david-dm.org/passmarked/cli.svg)](https://david-dm.org/passmarked/cli)
 [![devDependency Status](https://david-dm.org/passmarked/cli/dev-status.svg)](https://david-dm.org/passmarked/cli#info=devDependencies)
 
-A command-line interface to the Passmarked web API
+A command-line interface to the [Passmarked](https://passmarked.com) web API
 
 ##### Installation
 
@@ -24,3 +24,7 @@ passmarked http://example.com
 # test many sites with json output
 passmarked --json --output=outfile.json < mysites.txt
 ```
+
+##### Contributing
+
+Clone, install dev-dependencies and (ideally) pull request discrete features complemented with tests in branches.
