@@ -4,3 +4,4 @@
   + [x] it should be implicit
 - [ ] address submission to passmarked api
   + [ ] websocket connection to passmarked api for address submission results
+- [ ] add a codeclimate repo key to travis config
