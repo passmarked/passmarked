@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "istanbul test _mocha -- -R spec",
-    "coverage": "istanbul cover _mocha --report lcovonly -- test -R spec && coveralls < coverage/lcov.info && rm -rf coverage"
+    "coverage": "npm test --coverage"
   },
   "author": "Stephan Bothma <stephan@io.co.za>",
   "contributors": [
@@ -24,7 +24,7 @@
   "devDependencies": {
     "chai": "^3.2.0",
     "chakram": "^1.0.1",
-    "coveralls": "^2.11.4",
+    "codeclimate-test-reporter": "0.1.1",
     "istanbul": "^0.3.18",
     "mocha": "^2.2.5"
   }
