@@ -2,47 +2,44 @@
 
 function displayResults(err, res) {
   if (!res.results.score) {
-    return process.emit('log:error', [_.r_bg('passmarked.com:'), 'results not yet available']);
+    process.emit('log:error', [_.r_bg(' ✔ passmarked.com: '), 'results not yet available']);
   } else if (args.o) {
-    return out.write((
+    out.write((
       args.j ?
       (args.p ? JSON.stringify(res, null, '\t') : JSON.stringify(res)) :
       res.address + ': ' + res.results.score
     ));
   } else if (args.j) {
-    return console.log(args.p ? JSON.stringify(res, null, '\t') : JSON.stringify(res));
+    console.log(args.p ? JSON.stringify(res, null, '\t') : JSON.stringify(res));
   } else if (res.results.score >= 90) {
-    console.log(_.inv('passmarked-cli:'), res.address, _.g_bg(res.results.score));
+    console.log(_.inv(' ✔ passmarked-cli: '), res.address, _.g_bg(res.results.score));
   } else if (res.results.score >= 75) {
-    console.log(_.inv('passmarked-cli:'), res.address, _.y_bg(res.results.score));
+    console.log(_.inv(' ✔ passmarked-cli: '), res.address, _.y_bg(res.results.score));
   } else {
-    console.log(_.inv('passmarked-cli:'), res.address, _.r_bg(res.results.score));
+    console.log(_.inv(' ✔ passmarked-cli: '), res.address, _.r_bg(res.results.score));
   }
 }
 
 function domainQuery(address, done) {
-  http.get(
-    'http://api.passmarked.com/query?domain=' + address,
-    function(res) {
-      var json = '';
-      res.on('data', function(data) {
-        json += data;
-      }).on('end', function() {
-        return done(null, {
-          address: address,
-          results: JSON.parse(json),
-          when: +Date.now()
-        });
+  http.get('http://api.passmarked.com/query?domain=' + address, function(res) {
+    var json = '';
+    res.on('data', function(data) {
+      json += data;
+    }).on('end', function() {
+      return done(null, {
+        address: address,
+        results: JSON.parse(json),
+        when: Date.now()
       });
-    }
-  ).on('error', function(err) {
-    process.emit('log:error', [_.r_bg('passmarked.com:'), 'host unreachable']);
+    });
+  }).on('error', function(err) {
+    process.emit('log:error', [_.r_bg(' ✔ passmarked.com: '), 'host unreachable']);
   });
 }
 
 function validate(input, done) {
   if (!(validator.isURL(input) || validator.isIP(input) || validator.isFQDN(input))) {
-    return process.emit('log:error', [_.r_bg('passmarked-cli:'), 'please enter either an IP address or a fully-qualified domain name.']);
+    return process.emit('log:error', [_.r_bg(' ✔ passmarked-cli: '), 'please enter either an IP address or a fully-qualified domain name.']);
   }
   return done(input);
 }
@@ -51,9 +48,8 @@ function readFromStdin(done) {
   var piped = '';
   var warningTimer = setTimeout(function() {
     if (args.q) return;
-    console.log(
-      _.inv('passmarked-cli:'),
-      'expected data on STDIN - exiting in ten seconds...'
+    process.stderr.write(
+      _.inv(' ✔ passmarked-cli: ') + ' expecting data on STDIN. Exiting in ten seconds...\n'
     );
   }, 1000);
   var autoCloseTimer = setTimeout(function() {
@@ -78,7 +74,7 @@ function readFromStdin(done) {
       validate(addresses[address], done);
     }
   }).on('error', process.emit.bind(process, 'log:error', [
-    _.r_bg('passmarked-cli:'), 'error while reading from STDIN'
+    _.r_bg(' ✔ passmarked-cli: '), 'error while reading from STDIN'
   ]));
 }
 
@@ -86,43 +82,16 @@ function start(address) {
   domainQuery(address, displayResults);
 }
 
-var chalk = require('chalk'), _ = {
-  r: chalk.red,
-  g: chalk.green,
-  y: chalk.yellow,
-  r_bg: chalk.black.bgRed,
-  g_bg: chalk.black.bgGreen,
-  y_bg: chalk.black.bgYellow,
-  inv: chalk.inverse
-}, args = require('yargs')
-  .usage('Usage: $0 [options] <address>')
-  .boolean('j').default('j', false).alias('j', 'json').describe('j', 'Output in JSON format')
-  .boolean('p').default('p', false).alias('p', 'pretty').describe('p', 'Pretty-print JSON output')
-  .boolean('q').default('q', false).alias('q', 'quiet').describe('q', 'Suppress output')
-  .boolean('v').default('v', false).alias('v', 'version').describe('v', 'Display program version')
-  .string('d').default('d', '\n').alias('d', 'delimiter').describe('d', 'Delimiter for address list')
-  .string('o').alias('o', 'output').describe('o', 'Output file path')
-  .string('a').alias('a', 'address').describe('a', 'Address to test')
-  .help('h').default('h', false).alias('h', 'help')
-  .example('$0 http://example.com', 'Test example.com and print results to STDOUT')
-  .example('$0 -a http://example.com', 'Test example.com and print results to STDOUT')
-  .example('$0 -j -a http://example.com', 'Test example.com with JSON output')
-  .example('$0 -j -o results.json -a http://example.com', 'Test example.com with JSON output')
-  .example('$0 -j -o results.json -a http://example.com', 'Test example.com with JSON output')
-  .example('$0 -j -o results.json -d , < sites.txt', 'Test a comma-delimited list of addresses')
-  .example('$0 -j -o results.json < sites.txt', 'Test a newline-delimited list of addresses')
-  .epilog('Copyright 2015 Passmarked Inc.')
-  .argv;
-
 var fs        = require('fs');
 var pkg       = require('./package.json');
 var path      = require('path');
 var http      = require('http');
 var validator = require('validator');
 
-var out = args.o ? fs.createWriteStream(
-  path.resolve(args.o), {flags: 'a'}
-) : false;
+var _ = require('./lib/colours');
+var args = require('./lib/argv');
+
+var out = args.o ? fs.createWriteStream(path.resolve(args.o), {flags: 'a'}) : false;
 
 process.on('log:error', function(err) {
   console.error(err.join(' '));
@@ -131,8 +100,8 @@ process.on('log:error', function(err) {
 
 (function() {
   'use strict';
-  if (args.v || args.version) {
-    console.log(_.inv('passmarked-cli (version ' + pkg.version + ')'));
+  if (args.version) {
+    console.log(_.inv(' ✔ passmarked-cli (version ' + pkg.version + ') '));
   } else if (!(args._[0] || args.a || args.address)) {
     readFromStdin(start);
   } else {
