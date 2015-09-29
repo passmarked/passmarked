@@ -3,14 +3,12 @@
 function displayResults(err, res) {
   if (!res.results.score) {
     process.emit('log:error', [_.r_bg(' ✔ passmarked.com: '), 'results not yet available']);
-  } else if (args.o) {
-    out.write((
-      args.j ?
-      (args.p ? JSON.stringify(res, null, '\t') : JSON.stringify(res)) :
-      res.address + ': ' + res.results.score
-    ));
-  } else if (args.j) {
-    console.log(args.p ? JSON.stringify(res, null, '\t') : JSON.stringify(res));
+  } else if (args.output) {
+    log.write(args.json ? (
+      args.pretty ? JSON.stringify(res, null, '\t') : JSON.stringify(res)
+    ) : res.address + ': ' + res.results.score + '\n');
+  } else if (args.json) {
+    console.log(args.pretty ? JSON.stringify(res, null, '\t') : JSON.stringify(res));
   } else if (res.results.score >= 90) {
     console.log(_.inv(' ✔ passmarked-cli: '), res.address, _.g_bg(res.results.score));
   } else if (res.results.score >= 75) {
@@ -20,91 +18,38 @@ function displayResults(err, res) {
   }
 }
 
-function domainQuery(address, done) {
-  http.get('http://api.passmarked.com/query?domain=' + address, function(res) {
-    var json = '';
-    res.on('data', function(data) {
-      json += data;
-    }).on('end', function() {
-      return done(null, {
-        address: address,
-        results: JSON.parse(json),
-        when: Date.now()
-      });
-    });
-  }).on('error', function(err) {
-    process.emit('log:error', [_.r_bg(' ✔ passmarked.com: '), 'host unreachable']);
-  });
-}
-
-function validate(input, done) {
-  if (!(validator.isURL(input) || validator.isIP(input) || validator.isFQDN(input))) {
-    return process.emit('log:error', [_.r_bg(' ✔ passmarked-cli: '), 'please enter either an IP address or a fully-qualified domain name.']);
-  }
-  return done(input);
-}
-
-function readFromStdin(done) {
-  var piped = '';
-  var warningTimer = setTimeout(function() {
-    if (args.q) return;
-    process.stderr.write(
-      _.inv(' ✔ passmarked-cli: ') + ' expecting data on STDIN. Exiting in ten seconds...\n'
+function start(addresses) {
+  for (var address in addresses) {
+    validate(addresses[address], passmarked.query.bind(
+      passmarked, addresses[address], displayResults)
     );
-  }, 1000);
-  var autoCloseTimer = setTimeout(function() {
-    process.stdin.end();
-    process.exit(0);
-  }, 10000);
-  process.stdin.setEncoding('utf8');
-  process.stdin.on('data', function(data) {
-    if (warningTimer) {
-      clearTimeout(warningTimer);
-      warningTimer = null;
-    }
-    if (autoCloseTimer) {
-      clearTimeout(autoCloseTimer);
-      autoCloseTimer = null;
-    }
-    piped += data;
-  }).on('end', function() {
-    piped = piped.trim();
-    var addresses = piped.split(args.d);
-    for (var address in addresses) {
-      validate(addresses[address], done);
-    }
-  }).on('error', process.emit.bind(process, 'log:error', [
-    _.r_bg(' ✔ passmarked-cli: '), 'error while reading from STDIN'
-  ]));
+  }
 }
 
-function start(address) {
-  domainQuery(address, displayResults);
-}
+var _           = require('./lib/colours');
+var log         = require('./lib/log');
+var pkg         = require('./package.json');
+var args        = require('./lib/argv');
+var stdin       = require('./lib/stdin');
+var validate    = require('./lib/validate');
+var passmarked  = require('./lib/passmarked');
 
-var fs        = require('fs');
-var pkg       = require('./package.json');
-var path      = require('path');
-var http      = require('http');
-var validator = require('validator');
-
-var _ = require('./lib/colours');
-var args = require('./lib/argv');
-
-var out = args.o ? fs.createWriteStream(path.resolve(args.o), {flags: 'a'}) : false;
+var exitCode;
 
 process.on('log:error', function(err) {
   console.error(err.join(' '));
-  process.exit(1);
+  exitCode = 1;
+}).on('beforeExit', function() {
+  if (exitCode > 0) process.exit(exitCode);
 });
 
 (function() {
   'use strict';
   if (args.version) {
     console.log(_.inv(' ✔ passmarked-cli (version ' + pkg.version + ') '));
-  } else if (!(args._[0] || args.a || args.address)) {
-    readFromStdin(start);
+  } else if (!(args._[0] || args.address)) {
+    stdin.read(start);
   } else {
-    validate(args._[0] || args.address, start);
+    start([args._[0] || args.address]);
   }
 }).call(this);
