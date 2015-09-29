@@ -5,7 +5,9 @@
 function start(addresses) {
   for (var address in addresses) {
     validate(addresses[address], passmarked.query.bind(
-      passmarked, addresses[address], output
+      passmarked, addresses[address], function(err, res) {
+        process.emit('log:result', res);
+      }
     ));
   }
 }
@@ -19,12 +21,16 @@ var output      = require('./lib/output');
 var validate    = require('./lib/validate');
 var passmarked  = require('./lib/passmarked');
 
-var exitCode;
+var exitCode  = 0;
+var results   = [];
 
-process.on('log:error', function(err) {
+process.on('log:result', function(result) {
+  results.push(result);
+}).on('log:error', function(err) {
   console.error(err.join(' '));
   exitCode = 1;
 }).on('beforeExit', function() {
+  output(results);
   if (exitCode > 0) process.exit(exitCode);
 });
 
