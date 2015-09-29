@@ -181,22 +181,14 @@ describe('index', function() {
   describe('stdin', function() {
 
     it('should read from stdin', function(done) {
-      var passmarked = child_process.spawn(
-        __dirname + '/../index', ['-j']
-      ).on('error', done);
-
-      var out = '';
-      passmarked.stdout.on('data', function(data) {
-        out += data;
-      }).on('end', function() {
-        out = JSON.parse(out);
-        expect(out[0]).to.have.keys(['address', 'results', 'when']);
-        done();
-      });
-
-      passmarked.stdin.write(fqdn, function() {
-        passmarked.stdin.end();
-      });
+      child_process.exec(
+        'echo "google.com" | ' + __dirname + '/../index',
+        function(err, stdout, stderr) {
+          expect(err).to.not.be.okay;
+          expect(stderr).to.not.be.okay;
+          done();
+        }
+      );
     });
 
   });
