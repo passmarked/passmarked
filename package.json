@@ -1,0 +1,31 @@
+{
+  "name": "passmarked-cli",
+  "private": true,
+  "version": "0.3.0",
+  "description": "A CLI for the passmarked.com service",
+  "preferGlobal": true,
+  "bin": {
+    "passmarked": "index"
+  },
+  "scripts": {
+    "test": "istanbul test _mocha -- -R spec",
+    "coverage": "npm test --coverage"
+  },
+  "author": "Stephan Bothma <stephan@io.co.za>",
+  "contributors": [
+    "Ant Cosentino <ant@io.co.za>"
+  ],
+  "license": "Apache v2",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "validator": "^4.0.5",
+    "yargs": "^3.21.0"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "chakram": "^1.0.1",
+    "codeclimate-test-reporter": "0.1.1",
+    "istanbul": "^0.3.18",
+    "mocha": "^2.2.5"
+  }
+}
