@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "istanbul test _mocha -- -R spec",
-    "coverage": "npm test --coverage"
+    "coverage": "istanbul cover _mocha --report lcovonly -- test -R spec"
   },
   "author": "Stephan Bothma <stephan@io.co.za>",
   "contributors": [

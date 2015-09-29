@@ -24,14 +24,14 @@ var passmarked  = require('./lib/passmarked');
 var exitCode  = 0;
 var results   = [];
 
-process.on('log:result', function(result) {
-  results.push(result);
+process.on('beforeExit', function() {
+  output(results);
+  process.exit(exitCode);
 }).on('log:error', function(err) {
   console.error(err.join(' '));
   exitCode = 1;
-}).on('beforeExit', function() {
-  output(results);
-  if (exitCode > 0) process.exit(exitCode);
+}).on('log:result', function(result) {
+  results.push(result);
 });
 
 if (args.version) {
