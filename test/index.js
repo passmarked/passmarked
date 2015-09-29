@@ -6,6 +6,7 @@ var expect = require('chai').expect;
 
 var fqdn = 'google.com';
 var ipv4 = '104.18.38.200';
+var ipv6 = '::0';
 
 describe('index', function() {
 
@@ -35,7 +36,7 @@ describe('index', function() {
     });
     it('should accept ipv6', function(done) {
       child_process.exec(
-        __dirname + '/../index ::0',
+        __dirname + '/../index ' + ipv6,
         function(err, stdout, stderr) {
           expect(err).to.not.be.okay;
           expect(stderr).to.not.be.okay;
@@ -74,7 +75,7 @@ describe('index', function() {
 
       it('should run without error if an ipv6 is given', function(done) {
         child_process.exec(
-          __dirname + '/../index ::0',
+          __dirname + '/../index ' + ipv6,
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
@@ -111,7 +112,7 @@ describe('index', function() {
 
       it('should run without error if an ipv6 is given', function(done) {
         child_process.exec(
-          __dirname + '/../index -a ::0',
+          __dirname + '/../index -a ' + ipv6,
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
@@ -148,7 +149,7 @@ describe('index', function() {
 
       it('should run without error if an ipv6 is given', function(done) {
         child_process.exec(
-          __dirname + '/../index -j ::0',
+          __dirname + '/../index -j ' + ipv6,
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
