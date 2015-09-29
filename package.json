@@ -1,6 +1,6 @@
 {
   "name": "passmarked",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A CLI for the passmarked.com service",
   "preferGlobal": true,
   "bin": {
