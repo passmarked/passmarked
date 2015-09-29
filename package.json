@@ -1,7 +1,6 @@
 {
-  "name": "passmarked-cli",
-  "private": true,
-  "version": "0.3.0",
+  "name": "passmarked",
+  "version": "0.0.0",
   "description": "A CLI for the passmarked.com service",
   "preferGlobal": true,
   "bin": {
@@ -23,7 +22,6 @@
   },
   "devDependencies": {
     "chai": "^3.2.0",
-    "chakram": "^1.0.1",
     "codeclimate-test-reporter": "0.1.1",
     "istanbul": "^0.3.18",
     "mocha": "^2.2.5"
