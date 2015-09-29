@@ -1,3 +1,5 @@
 test/
 .travis.yml
 .editorconfig
+.codeclimate.yml
+TODO.md

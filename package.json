@@ -1,7 +1,6 @@
 {
-  "name": "passmarked-cli",
-  "private": true,
-  "version": "0.3.0",
+  "name": "passmarked",
+  "version": "0.0.5",
   "description": "A CLI for the passmarked.com service",
   "preferGlobal": true,
   "bin": {
@@ -15,15 +14,49 @@
   "contributors": [
     "Ant Cosentino <ant@io.co.za>"
   ],
-  "license": "Apache v2",
+  "keywords": [
+    "passmarked",
+    "passmark",
+    "pass",
+    "test",
+    "performance",
+    "mark",
+    "marked",
+    "score",
+    "optimize",
+    "measure",
+    "website",
+    "page",
+    "speed",
+    "insights",
+    "pagespeed",
+    "cli",
+    "bin",
+    "loading",
+    "network",
+    "security",
+    "shellshock",
+    "heartbleed",
+    "css",
+    "html",
+    "markup",
+    "seo",
+    "spellcheck",
+    "compatibility",
+    "standards"
+  ],
+  "license": "Apache-2.0",
   "dependencies": {
     "chalk": "^1.1.1",
     "validator": "^4.0.5",
     "yargs": "^3.21.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/passmarked/cli/"
+  },
   "devDependencies": {
     "chai": "^3.2.0",
-    "chakram": "^1.0.1",
     "codeclimate-test-reporter": "0.1.1",
     "istanbul": "^0.3.18",
     "mocha": "^2.2.5"
