@@ -1,13 +1,7 @@
 
-# passmarked-cli
+# passmarked-cli [![Build Status](https://travis-ci.org/passmarked/cli.svg)](https://travis-ci.org/passmarked/cli) [![Code Climate](https://codeclimate.com/github/passmarked/cli/badges/gpa.svg)](https://codeclimate.com/github/passmarked/cli)
 
-[![Build Status](https://travis-ci.org/passmarked/cli.svg)](https://travis-ci.org/passmarked/cli)
-[![Code Climate](https://codeclimate.com/github/passmarked/cli/badges/gpa.svg)](https://codeclimate.com/github/passmarked/cli)
-[![Test Coverage](https://codeclimate.com/github/passmarked/cli/badges/coverage.svg)](https://codeclimate.com/github/passmarked/cli/coverage)
-[![Dependency Status](https://david-dm.org/passmarked/cli.svg)](https://david-dm.org/passmarked/cli)
-[![devDependency Status](https://david-dm.org/passmarked/cli/dev-status.svg)](https://david-dm.org/passmarked/cli#info=devDependencies)
-
-A command-line interface to the [Passmarked](https://passmarked.com) web API
+> A command-line interface to the [Passmarked](https://passmarked.com) web API.
 
 ##### Installation
 
@@ -22,10 +16,12 @@ npm install --global passmarked
 passmarked --help
 # test a site
 passmarked http://example.com
-# test many sites with json output
+# test many sites with json output (default delimiter is \n)
 passmarked --json --output=outfile.json < mysites.txt
+# comma-delimited string of addresses
+echo "google.com,example.com" | passmarked --delimiter=,
 ```
 
 ##### Contributing
 
-Clone, install dev-dependencies and (ideally) pull request discrete features complemented with tests in branches.
+Fork the repository, clone your fork and use a branching workflow and pull-request your additions (ideally complemented with tests) to this repository.
