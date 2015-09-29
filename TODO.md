@@ -1,5 +1,5 @@
 
-- [ ] json output is not contained in an array
+- [x] json output is not contained in an array
 - [x] should reading from stdin be a mode enabled with a flag or implicit?
   + [x] it should be implicit
 - [ ] address submission to passmarked api
