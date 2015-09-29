@@ -2,7 +2,8 @@
 # passmarked-cli
 
 [![Build Status](https://travis-ci.org/passmarked/cli.svg)](https://travis-ci.org/passmarked/cli)
-[![Coverage Status](https://coveralls.io/repos/passmarked/cli/badge.svg?branch=master&service=github)](https://coveralls.io/github/passmarked/cli?branch=master)
+[![Code Climate](https://codeclimate.com/github/passmarked/cli/badges/gpa.svg)](https://codeclimate.com/github/passmarked/cli)
+[![Test Coverage](https://codeclimate.com/github/passmarked/cli/badges/coverage.svg)](https://codeclimate.com/github/passmarked/cli/coverage)
 [![Dependency Status](https://david-dm.org/passmarked/cli.svg)](https://david-dm.org/passmarked/cli)
 [![devDependency Status](https://david-dm.org/passmarked/cli/dev-status.svg)](https://david-dm.org/passmarked/cli#info=devDependencies)
 
@@ -11,7 +12,7 @@ A command-line interface to the [Passmarked](https://passmarked.com) web API
 ##### Installation
 
 ```
-npm install --global passmarked-cli
+npm install --global passmarked
 ```
 
 ##### Usage
