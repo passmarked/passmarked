@@ -35,7 +35,7 @@ process.on('log:result', function(result) {
 });
 
 if (args.version) {
-  console.log(_.inv(' ✔ passmarked-cli (version ' + pkg.version + ') '));
+  console.log(_.inv(' ✔ passmarked: (version ' + pkg.version + ') '));
 } else if (!(args._[0] || args.address)) {
   stdin.read(start);
 } else {
