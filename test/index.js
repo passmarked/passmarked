@@ -192,7 +192,7 @@ describe('index', function() {
         done();
       });
 
-      passmarked.stdin.end(fqdn);
+      passmarked.stdin.write(fqdn);
     });
 
   });
