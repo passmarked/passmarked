@@ -9,11 +9,13 @@ var ipv4 = '104.18.38.200';
 
 describe('index', function() {
 
+  this.timeout(10000); // we're testing over http ._.
+
   describe('domain address types', function() {
 
     it('should accept fqdn', function(done) {
       child_process.exec(
-        __dirname + '/index ' + fqdn,
+        __dirname + '/../index ' + fqdn,
         function(err, stdout, stderr) {
           expect(err).to.not.be.okay;
           expect(stderr).to.not.be.okay;
@@ -23,7 +25,7 @@ describe('index', function() {
     });
     it('should accept ipv4', function(done) {
       child_process.exec(
-        __dirname + '/index ' + ipv4,
+        __dirname + '/../index ' + ipv4,
         function(err, stdout, stderr) {
           expect(err).to.not.be.okay;
           expect(stderr).to.not.be.okay;
@@ -33,7 +35,7 @@ describe('index', function() {
     });
     it('should accept ipv6', function(done) {
       child_process.exec(
-        __dirname + '/index ::0',
+        __dirname + '/../index ::0',
         function(err, stdout, stderr) {
           expect(err).to.not.be.okay;
           expect(stderr).to.not.be.okay;
@@ -50,7 +52,7 @@ describe('index', function() {
 
       it('should run without error if a fqdn is given', function(done) {
         child_process.exec(
-          __dirname + '/index ' + fqdn,
+          __dirname + '/../index ' + fqdn,
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
@@ -61,7 +63,7 @@ describe('index', function() {
 
       it('should run without error if an ipv4 address is given', function(done) {
         child_process.exec(
-          __dirname + '/index ' + ipv4,
+          __dirname + '/../index ' + ipv4,
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
@@ -72,7 +74,7 @@ describe('index', function() {
 
       it('should run without error if an ipv6 is given', function(done) {
         child_process.exec(
-          __dirname + '/index ::0',
+          __dirname + '/../index ::0',
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
@@ -87,7 +89,7 @@ describe('index', function() {
 
       it('should run without error if a fqdn is given', function(done) {
         child_process.exec(
-          __dirname + '/index -a ' + fqdn,
+          __dirname + '/../index -a ' + fqdn,
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
@@ -98,7 +100,7 @@ describe('index', function() {
 
       it('should run without error if an ipv4 address is given', function(done) {
         child_process.exec(
-          __dirname + '/index -a ' + ipv4,
+          __dirname + '/../index -a ' + ipv4,
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
@@ -109,7 +111,7 @@ describe('index', function() {
 
       it('should run without error if an ipv6 is given', function(done) {
         child_process.exec(
-          __dirname + '/index -a ::0',
+          __dirname + '/../index -a ::0',
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
@@ -124,7 +126,7 @@ describe('index', function() {
 
       it('should run without error if a fqdn is given', function(done) {
         child_process.exec(
-          __dirname + '/index -j ' + fqdn,
+          __dirname + '/../index -j ' + fqdn,
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
@@ -135,7 +137,7 @@ describe('index', function() {
 
       it('should run without error if an ipv4 address is given', function(done) {
         child_process.exec(
-          __dirname + '/index -j ' + ipv4,
+          __dirname + '/../index -j ' + ipv4,
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
@@ -146,7 +148,7 @@ describe('index', function() {
 
       it('should run without error if an ipv6 is given', function(done) {
         child_process.exec(
-          __dirname + '/index -j ::0',
+          __dirname + '/../index -j ::0',
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
@@ -162,7 +164,7 @@ describe('index', function() {
       it('shouldn\'t explode', function(done) {
 
         child_process.exec(
-          __dirname + '/index --address=' + fqdn + ' ' + fqdn,
+          __dirname + '/../index --address=' + fqdn + ' ' + fqdn,
           function(err, stdout, stderr) {
             expect(err).to.not.be.okay;
             expect(stderr).to.not.be.okay;
@@ -192,7 +194,9 @@ describe('index', function() {
         done();
       });
 
-      passmarked.stdin.write(fqdn);
+      passmarked.stdin.write(fqdn, function() {
+        passmarked.stdin.end();
+      });
     });
 
   });
