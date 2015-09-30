@@ -4,11 +4,12 @@
 
 function start(addresses) {
   for (var address in addresses) {
-    validate(addresses[address], passmarked.query.bind(
-      passmarked, addresses[address], function(err, res) {
+    validate(addresses[address], function(err) {
+      if (err) return;
+      passmarked.query(addresses[address], function(err, res) {
         process.emit('log:result', res);
-      }
-    ));
+      });
+    });
   }
 }
 
