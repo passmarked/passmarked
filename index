@@ -6,15 +6,9 @@ function start(addresses) {
   for (var address in addresses) {
     validate(addresses[address], function(err) {
       if (err) return;
-      else if (args.submit) {
-        passmarked.submit(addresses[address], function(err, res) {
-          if (!err) passmarked.subscribe(res.id);
-        });
-      } else {
-        passmarked.query(addresses[address], function(err, res) {
-          if (!err) process.emit('log:result', res);
-        });
-      }
+      passmarked.query(addresses[address], function(err, res) {
+        if (!err) process.emit('log:result', res);
+      });
     });
   }
 }
