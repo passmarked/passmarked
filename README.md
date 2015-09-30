@@ -24,4 +24,7 @@ echo "google.com,example.com" | passmarked --delimiter=,
 
 ##### Contributing
 
-Fork the repository, clone your fork and use a branching workflow and pull-request your additions (ideally complemented with tests) to this repository.
+1. Fork the project
+2. Write a test that reproduces the bug
+3. Fix the bug without breaking any of the existing tests
+4. Submit a pull request
