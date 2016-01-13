@@ -16,32 +16,9 @@
   ],
   "keywords": [
     "passmarked",
-    "passmark",
-    "pass",
-    "test",
     "performance",
-    "mark",
-    "marked",
-    "score",
-    "optimize",
-    "measure",
-    "website",
-    "page",
-    "speed",
-    "insights",
     "pagespeed",
-    "cli",
-    "bin",
-    "loading",
-    "network",
     "security",
-    "shellshock",
-    "heartbleed",
-    "css",
-    "html",
-    "markup",
-    "seo",
-    "spellcheck",
     "compatibility",
     "standards"
   ],
@@ -56,10 +33,14 @@
     "type": "git",
     "url": "https://github.com/passmarked/cli/"
   },
+  "bugs": {
+    "url" : "https://github.com/passmarked/cli/issues"
+  },
   "devDependencies": {
     "chai": "^3.2.0",
     "codeclimate-test-reporter": "0.1.1",
     "istanbul": "^0.3.18",
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "nock": "2.13.0"
   }
 }
