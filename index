@@ -2,25 +2,12 @@
 
 'use strict';
 
-function start(addresses) {
-  for (var address in addresses) {
-    validate(addresses[address], function(err) {
-      if (err) return;
-      passmarked.query(addresses[address], function(err, res) {
-        if (!err) process.emit('log:result', res);
-      });
-    });
-  }
-}
-
 var _           = require('./lib/colours');
-var log         = require('./lib/log');
 var pkg         = require('./package.json');
 var args        = require('./lib/argv');
 var stdin       = require('./lib/stdin');
 var output      = require('./lib/output');
-var validate    = require('./lib/validate');
-var passmarked  = require('./lib/passmarked');
+var start       = require('./lib/start');
 
 var exitCode  = 0;
 var results   = [];
