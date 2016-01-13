@@ -1,4 +1,5 @@
 
+- [ ] authentication and authorisation for crediting system
 - [ ] improve the test suite (we hit the actual passmarked servers)
 - [x] json output is not contained in an array
 - [x] should reading from stdin be a mode enabled with a flag or implicit?
