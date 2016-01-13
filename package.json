@@ -1,6 +1,6 @@
 {
   "name": "passmarked",
-  "version": "0.0.13",
+  "version": "0.1.0",
   "description": "A CLI for the passmarked.com service",
   "preferGlobal": true,
   "bin": {
@@ -34,7 +34,7 @@
     "url": "https://github.com/passmarked/cli/"
   },
   "bugs": {
-    "url" : "https://github.com/passmarked/cli/issues"
+    "url": "https://github.com/passmarked/cli/issues"
   },
   "devDependencies": {
     "chai": "^3.2.0",
