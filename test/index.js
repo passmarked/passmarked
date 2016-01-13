@@ -198,7 +198,7 @@ describe('passmarked', function() {
 
   describe('lib/stdin', function() {
     it('should display a warning if nothing is written to stdin after two seconds', function(done) {
-      this.timeout(3000);
+      // this.timeout(3000);
       var node = child_process.exec('node -e "require(\'./lib/stdin\').read(function() {});"', function(err, stdout, stderr) {
         expect(stderr.toString()).to.contain('expecting data on STDIN');
         done();
