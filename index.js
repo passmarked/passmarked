@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-module.exports=exports=require('./lib/module');
+module.exports=exports=require('./lib');

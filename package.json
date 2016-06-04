@@ -27,12 +27,12 @@
   "license": "Apache-2.0",
   "dependencies": {
     "async": "^2.0.0-rc.5",
-    "blessed": "^0.1.81",
     "bufferutil": "^1.2.1",
     "chalk": "^1.1.1",
     "colors": "^1.1.2",
     "lodash": "^4.13.1",
     "moment": "^2.13.0",
+    "opener": "^1.4.1",
     "request": "^2.72.0",
     "sockjs-client": "^1.1.1",
     "string": "^3.3.1",

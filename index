@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-module.exports=exports=require('./lib').boot();
+module.exports=exports=require('./lib/cli').boot();
