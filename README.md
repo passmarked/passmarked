@@ -1,7 +1,7 @@
 
-# Passmarked 
+# Passmarked
 
-![NPM](https://img.shields.io/npm/dt/passmarked.svg) [![Build Status](https://travis-ci.org/passmarked/cli.svg)](https://travis-ci.org/passmarked/cli)  [![Test Coverage](https://codeclimate.com/github/passmarked/cli/badges/coverage.svg)](https://codeclimate.com/github/passmarked/cli/coverage)
+![NPM](https://img.shields.io/npm/dt/passmarked.svg) [![Build Status](https://travis-ci.org/passmarked/passmarked.svg)](https://travis-ci.org/passmarked/passmarked)  [![Test Coverage](https://codeclimate.com/github/passmarked/passmarked/badges/coverage.svg)](https://codeclimate.com/github/passmarked/passmarked/coverage)
 
 CLI based tool for the [Passmarked](https://passmarked.com) API that can be used for easy integrations and general horse play. Intended to by usable as a simple tool for your development workflow but also usable on services like Jenkins and other CI environments.
 
@@ -51,7 +51,7 @@ passmarked http://example.com
 ##
 # test many sites with json output (default delimiter is \n)
 ##
-passmarked --json --output=outfile.json < mysites.txt
+passmarked --format json --output=outfile.json < mysites.txt
 
 ##
 # comma-delimited string of addresses
@@ -67,6 +67,8 @@ passmarked -r google.com,example.com
 ## Module
 
 The module can also be used as a regular NodeJS module that allows programs to integrate quickly with the Passmarked system.
+
+### Quick start
 
 ```bash
 npm install --save
@@ -104,7 +106,7 @@ report.start(function(err, data) {
 passmarked.getReport('2016049a03452018', function(err, report){
 
 	// output the report info
-	console.dir(err);	
+	console.dir(err);
 	console.dir(data);
 
 });
@@ -114,7 +116,7 @@ passmarked.getWebsites(<token>, function(err, websites) {
 
 	// create and run a report, waiting for it to finish
 	var report = passmarked.createCrawl({
-	
+
 		websiteid: 	1,
 		token: 		'<token>'
 
@@ -130,14 +132,24 @@ passmarked.getWebsites(<token>, function(err, websites) {
 
 	});
 	report.start(function(err, crawl) {
-	
+
 		console.log('crawl started')
-	
+
 	});
 
 });
 
 ```
+
+### All Methods:
+
+* [#Authentication](https://github.com/passmarked/passmarked/wiki/authentication)
+* [#createReport](https://github.com/passmarked/passmarked/wiki/passmarked.createReport)
+* [#createCrawl](https://github.com/passmarked/passmarked/wiki/passmarked.createCrawl)
+* [#getReport](https://github.com/passmarked/passmarked/wiki/passmarked.getReport)
+* [#getWebsites](https://github.com/passmarked/passmarked/wiki/passmarked.getWebsites)
+* [getProfile](https://github.com/passmarked/passmarked/wiki/passmarked.getProfile)
+* [getBalance](https://github.com/passmarked/passmarked/wiki/passmarked.getBalance)
 
 ## Contributing
 
