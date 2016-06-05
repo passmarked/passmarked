@@ -3,3 +3,4 @@ test/
 .editorconfig
 .codeclimate.yml
 TODO.md
+output.json
