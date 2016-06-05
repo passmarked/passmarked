@@ -39,7 +39,7 @@
     "utf-8-validate": "^1.2.1",
     "validator": "^4.9.0",
     "ws": "^1.1.0",
-    "yargs": "^3.32.0"
+    "yargs": "^4.7.1"
   },
   "repository": {
     "type": "git",
