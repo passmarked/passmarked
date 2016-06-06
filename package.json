@@ -2,13 +2,13 @@
   "name": "passmarked",
   "version": "0.1.182",
   "description": "A CLI for the passmarked.com service",
+  "homepage": "http://passmarked.com",
   "preferGlobal": true,
   "bin": {
     "passmarked": "index"
   },
   "scripts": {
-    "test": "istanbul test _mocha -- -R spec",
-    "coverage": "istanbul cover _mocha --report lcovonly -- test -R spec"
+    "test": "mocha"
   },
   "author": "Passmarked <info@passmarked.com>",
   "contributors": [
@@ -46,7 +46,8 @@
     "url": "https://github.com/passmarked/passmarked/"
   },
   "bugs": {
-    "url": "https://github.com/passmarked/passmarked/issues"
+    "url": "https://github.com/passmarked/passmarked/issues",
+    "email": "support@passmarked.com"
   },
   "devDependencies": {
     "chai": "^3.2.0",

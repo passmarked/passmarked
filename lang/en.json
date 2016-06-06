@@ -1,0 +1,7 @@
+{
+  "ERROR_RECURSIVE_TOKEN": "Token is required to start a crawl",
+  "ERROR_INVALID_DOMAIN": "Invalid Domain",
+  "ERROR_IP_LOCALHOST": "Cannot test localhost / loopback address",
+  "ERROR_IP_LOCALNET": "Cannot test local network",
+  "ERROR_CALLBACK_REQUIRED": "Callback is required but not found"
+}

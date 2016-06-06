@@ -1,7 +1,7 @@
 
 # Passmarked
 
-![NPM](https://img.shields.io/npm/dt/passmarked.svg) [![Build Status](https://travis-ci.org/passmarked/passmarked.svg)](https://travis-ci.org/passmarked/passmarked)  [![Test Coverage](https://codeclimate.com/github/passmarked/passmarked/badges/coverage.svg)](https://codeclimate.com/github/passmarked/passmarked/coverage)
+![NPM](https://img.shields.io/npm/dt/passmarked.svg) [![Build Status](https://travis-ci.org/passmarked/passmarked.svg)](https://travis-ci.org/passmarked/passmarked)
 
 CLI based tool for the [Passmarked](https://passmarked.com) API that can be used for easy integrations and general horse play. Intended to by usable as a simple tool for your development workflow but also usable on services like Jenkins and other CI environments.
 
@@ -20,7 +20,7 @@ View the project at [npmjs.com/package/passmarked](https://www.npmjs.com/package
 To build from source:
 
 ```bash
-git clone git@github.com:passmarked/cli.git passmarked/
+git clone git@github.com:passmarked/passmarked.git passmarked/
 cd passmarked/
 npm install
 ```
@@ -82,60 +82,83 @@ var passmarked = require('passmarked');
 // create and run a report, waiting for it to finish
 var report = passmarked.createReport({
 
-	url: 	'http://io.co.za',
-	token: 	'<token>'
+  url:     'http://example.com',
+  token:   '<token>'
 
 });
-report.on('done', function(err, data) {
+report.on('issue', function(err, issue) {
 
-	console.log('done with a score of ' + data.score)
+  console.log('Found a issue - ' + issue.message);
+
+});
+report.on('done|end', function(err, data) {
+
+  console.log('done with a score of ' + data.score)
 
 });
 report.on('progress', function(err, data) {
 
-	console.log('done with a score of ' + data.score)
+  console.log('done with a score of ' + data.score)
 
 });
-report.start(function(err, data) {
+report.start(function(err) {
 
-	console.log('Report started');
+  console.log('Report started');
 
 });
 
 // return a historical report from the service
 passmarked.getReport('2016049a03452018', function(err, report){
 
-	// output the report info
-	console.dir(err);
-	console.dir(data);
+  // output the report info
+  console.error(err);
+  console.dir(data);
 
 });
 
 // get the list of registered websites for the user
 passmarked.getWebsites(<token>, function(err, websites) {
 
-	// create and run a report, waiting for it to finish
-	var report = passmarked.createCrawl({
+  // output information from call
+  console.error(err);
+  console.dir(websites);
 
-		websiteid: 	1,
-		token: 		'<token>'
+});
 
-	});
-	report.on('done', function(err, crawl) {
+// create and run a report, waiting for it to finish
+var report = passmarked.createReport({
 
-		console.log('done with a score of ' + report.score + ' after going through ' + crawl.pages + ' pages')
+  url:         'http://example.com',
+  token:       '<token>',
+  recursive:   true,
+  limit:       50,
+  bail:        true,
+  patterns:    [  ]
 
-	});
-	report.on('progress', function(err, crawl) {
+});
+report.on('done|end', function(err, crawl) {
 
-		console.log('pages ' + crawl.processed + '/' + crawl.pages)
+  console.log('done with a score of ' + crawl.score + ' after going through ' + crawl.pages + ' pages');
 
-	});
-	report.start(function(err, crawl) {
+});
+report.on('page', function(err, page) {
 
-		console.log('crawl started')
+  console.log('Processed page - ' + page.url + ' score ' + page.score);
 
-	});
+});
+report.on('issue', function(err, issue) {
+
+  console.log('Found a issue - ' + issue.message);
+
+});
+report.on('progress', function(err, crawl) {
+
+  console.log('pages ' + crawl.processed + '/' + crawl.pages);
+
+});
+report.start(function(err, crawl) {
+
+  console.log('crawl started');
 
 });
 
