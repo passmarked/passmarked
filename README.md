@@ -168,7 +168,6 @@ report.start(function(err, crawl) {
 
 * [#Authentication](https://github.com/passmarked/passmarked/wiki/authentication)
 * [#createReport](https://github.com/passmarked/passmarked/wiki/passmarked.createReport)
-* [#createCrawl](https://github.com/passmarked/passmarked/wiki/passmarked.createCrawl)
 * [#getReport](https://github.com/passmarked/passmarked/wiki/passmarked.getReport)
 * [#getWebsites](https://github.com/passmarked/passmarked/wiki/passmarked.getWebsites)
 * [getProfile](https://github.com/passmarked/passmarked/wiki/passmarked.getProfile)
