@@ -3,18 +3,9 @@ env:
   - CODECLIMATE_REPO_TOKEN=c4c0a7c1145a59087bdb9ec386ba6a7b531ff07bb016b3f6c6afd9ad5a28b79d
 node_js:
   - '6.2'
-  - '6.1'
-  - '6.0'
-  - '5.0'
-  - '4.0'
+  - '5.1'
+  - '4.2'
   - '0.12'
-before_install:
-  - sudo apt-get install python-software-properties
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-  - sudo apt-get update
-  - sudo apt-get install -y gcc-5 g++-5
-  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 80 --slave /usr/bin/g++ g++ /usr/bin/g++-5
-  - sudo update-alternatives --config gcc (choose gcc-5 from the list)
 after_script:
   - npm test --coverage
   - codeclimate-test-reporter < coverage/lcov.info
