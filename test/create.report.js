@@ -85,7 +85,7 @@ describe('passmarked', function() {
 
       });
 
-      it('Should not fail when trying to start with valid domain [passmarked.com]', function(done) {
+      /* it('Should not fail when trying to start with valid domain [passmarked.com]', function(done) {
 
         var report = passmarked.createReport({ url: 'http://passmarked.com' });
         report.validateTarget(report.getURL(), function(err){
@@ -95,7 +95,7 @@ describe('passmarked', function() {
 
         });
 
-      });
+      }); */
 
     });
 
@@ -173,7 +173,7 @@ describe('passmarked', function() {
 
       });
 
-      it('Should not fail when trying to start with valid domain [passmarked.com]', function(done) {
+      /* it('Should not fail when trying to start with valid domain [passmarked.com]', function(done) {
 
         var report = passmarked.createReport({ url: 'http://passmarked.com' });
         report.start(function(err){
@@ -183,7 +183,7 @@ describe('passmarked', function() {
 
         });
 
-      });
+      }); */
 
       it('Patterns should be set to [], in default', function(done) {
 
