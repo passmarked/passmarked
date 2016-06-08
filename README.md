@@ -64,6 +64,8 @@ passmarked google.com,example.com
 passmarked -r google.com,example.com
 ```
 
+See `--help` for all available properties and usage information.
+
 ## Module
 
 The module can also be used as a regular NodeJS module that allows programs to integrate quickly with the Passmarked system.
@@ -87,6 +89,8 @@ npm install --save
 
 #### Test a single page
 
+Run a single page and return all issues and information gathered from the page.
+
 ```javascript
 var passmarked = require('passmarked');
 
@@ -97,29 +101,38 @@ var report = passmarked.createReport({
   token:   '<token>'
 
 });
-report.on('issue', function(err, issue) {
+report.on('done', function(err, data) {
 
-  console.log('Found a issue - ' + issue.message);
-
-});
-report.on('done|end', function(err, data) {
-
-  console.log('done with a score of ' + data.score)
+  var result = this.getResult();
+  console.log('done with a score of ' + result.getScore());
+  console.dir(result.toJSON());
 
 });
-report.on('progress', function(err, data) {
+report.on('update', function() {
 
-  console.log('done with a score of ' + data.score)
+  var result = this.getResult();
+  console.log(result.countPendingTests() + "/" + result.countTests());
 
 });
 report.start(function(err) {
 
-  console.log('Report started');
+  if(err) {
+
+    console.log('Something went wrong starting the report');
+    console.error(err);
+
+  } else {
+
+    console.log('Report started');
+
+  }
 
 });
 ```
 
 #### Run a recursive report over a entire domain
+
+Example running a site wide report, requested websites must be registered on [passmarked.com](http://passmarked.com)
 
 ```javascript
 // create and run a report, waiting for it to finish
@@ -133,29 +146,36 @@ var report = passmarked.createReport({
   patterns:    [  ]
 
 });
-report.on('done|end', function(err, crawl) {
+report.on('done', function(err) {
 
-  console.log('done with a score of ' + crawl.score + ' after going through ' + crawl.pages + ' pages');
+  var result = this.getResult();
+  console.log('done with a score of ' + result.getScore() + ' after going through ' + result.countPages() + ' pages');
+  console.dir(result.toJSON());
 
 });
 report.on('page', function(err, page) {
 
-  console.log('Processed page - ' + page.url + ' score ' + page.score);
+  console.log('Processed page - ' + page.getURL() + ' score ' + page.getScore());
 
 });
-report.on('issue', function(err, issue) {
+report.on('update', function(err) {
 
-  console.log('Found a issue - ' + issue.message);
-
-});
-report.on('progress', function(err, crawl) {
-
-  console.log('pages ' + crawl.processed + '/' + crawl.pages);
+  var result = this.getResult();
+  console.log('pages ' + result.countProcessedPages() + '/' + result.countPages());
 
 });
 report.start(function(err, crawl) {
 
-  console.log('crawl started');
+  if(err) {
+
+    console.log('problem starting the recursive report');
+    console.error(err);
+
+  } else {
+
+    console.log('crawl started');
+
+  }
 
 });
 
@@ -163,18 +183,23 @@ report.start(function(err, crawl) {
 
 #### Download historical report for a page
 
+The following shows how to download a single historical report from our archive.
+
 ```javascript
 // return a historical report from the service
 passmarked.getReport('2016049a03452018', function(err, report){
 
   // output the report info
   console.error(err);
-  console.dir(data);
+  console.dir(report.getURL());
+  console.dir(report.toJSON());
 
 });
 ```
 
 #### Registered websites
+
+Returns the list of websites that the given token has access to.
 
 ```javascript
 // get the list of registered websites for the user
@@ -182,7 +207,11 @@ passmarked.getWebsites(<token>, function(err, websites) {
 
   // output information from call
   console.error(err);
-  console.dir(websites);
+  for(var i = 0; i < websites.length; i++) {
+
+    console.log('-> ' + websites.getDomain());
+
+  }
 
 });
 ```
