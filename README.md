@@ -71,11 +71,11 @@ The module can also be used as a regular NodeJS module that allows programs to i
 ### API
 
 * [Authentication](https://github.com/passmarked/passmarked/wiki/authentication)
-* [createReport](https://github.com/passmarked/passmarked/wiki/passmarked.createReport)
-* [getReport](https://github.com/passmarked/passmarked/wiki/passmarked.getReport)
-* [getWebsites](https://github.com/passmarked/passmarked/wiki/passmarked.getWebsites)
-* [getProfile](https://github.com/passmarked/passmarked/wiki/passmarked.getProfile)
-* [getBalance](https://github.com/passmarked/passmarked/wiki/passmarked.getBalance)
+* [createReport](https://github.com/passmarked/passmarked/wiki/createReport)
+* [getReport](https://github.com/passmarked/passmarked/wiki/getReport)
+* [getWebsites](https://github.com/passmarked/passmarked/wiki/getWebsites)
+* [getProfile](https://github.com/passmarked/passmarked/wiki/getProfile)
+* [getBalance](https://github.com/passmarked/passmarked/wiki/getBalance)
 
 ### Quick start
 
