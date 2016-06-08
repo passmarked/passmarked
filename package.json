@@ -4,6 +4,7 @@
   "description": "A CLI for the passmarked.com service",
   "homepage": "http://passmarked.com",
   "preferGlobal": true,
+  "engines": { "node" : ">=0.12.0" },
   "bin": {
     "passmarked": "index"
   },
