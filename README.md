@@ -68,13 +68,24 @@ passmarked -r google.com,example.com
 
 The module can also be used as a regular NodeJS module that allows programs to integrate quickly with the Passmarked system.
 
+### API
+
+* [Authentication](https://github.com/passmarked/passmarked/wiki/authentication)
+* [createReport](https://github.com/passmarked/passmarked/wiki/passmarked.createReport)
+* [getReport](https://github.com/passmarked/passmarked/wiki/passmarked.getReport)
+* [getWebsites](https://github.com/passmarked/passmarked/wiki/passmarked.getWebsites)
+* [getProfile](https://github.com/passmarked/passmarked/wiki/passmarked.getProfile)
+* [getBalance](https://github.com/passmarked/passmarked/wiki/passmarked.getBalance)
+
 ### Quick start
+
+#### Install
 
 ```bash
 npm install --save
 ```
 
-and to use:
+#### Test a single page
 
 ```javascript
 var passmarked = require('passmarked');
@@ -106,25 +117,11 @@ report.start(function(err) {
   console.log('Report started');
 
 });
+```
 
-// return a historical report from the service
-passmarked.getReport('2016049a03452018', function(err, report){
+#### Run a recursive report over a entire domain
 
-  // output the report info
-  console.error(err);
-  console.dir(data);
-
-});
-
-// get the list of registered websites for the user
-passmarked.getWebsites(<token>, function(err, websites) {
-
-  // output information from call
-  console.error(err);
-  console.dir(websites);
-
-});
-
+```javascript
 // create and run a report, waiting for it to finish
 var report = passmarked.createReport({
 
@@ -164,14 +161,31 @@ report.start(function(err, crawl) {
 
 ```
 
-### All Methods:
+#### Download historical report for a page
 
-* [#Authentication](https://github.com/passmarked/passmarked/wiki/authentication)
-* [#createReport](https://github.com/passmarked/passmarked/wiki/passmarked.createReport)
-* [#getReport](https://github.com/passmarked/passmarked/wiki/passmarked.getReport)
-* [#getWebsites](https://github.com/passmarked/passmarked/wiki/passmarked.getWebsites)
-* [getProfile](https://github.com/passmarked/passmarked/wiki/passmarked.getProfile)
-* [getBalance](https://github.com/passmarked/passmarked/wiki/passmarked.getBalance)
+```javascript
+// return a historical report from the service
+passmarked.getReport('2016049a03452018', function(err, report){
+
+  // output the report info
+  console.error(err);
+  console.dir(data);
+
+});
+```
+
+#### Registered websites
+
+```javascript
+// get the list of registered websites for the user
+passmarked.getWebsites(<token>, function(err, websites) {
+
+  // output information from call
+  console.error(err);
+  console.dir(websites);
+
+});
+```
 
 ## Contributing
 
