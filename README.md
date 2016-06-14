@@ -78,7 +78,7 @@ The module can also be used as a regular NodeJS module that allows programs to i
 * [getWebsites](https://github.com/passmarked/passmarked/wiki/getWebsites)
 * [getProfile](https://github.com/passmarked/passmarked/wiki/getProfile)
 * [getBalance](https://github.com/passmarked/passmarked/wiki/getBalance)
-* [getBalance](https://github.com/passmarked/passmarked/wiki/getBalance)
+* [run](https://github.com/passmarked/passmarked/wiki/run)
 
 ### Quick start
 
@@ -94,27 +94,16 @@ Passmarked is built to be a framework that can be used by anyone, all our rules 
 
 List of provided test suites that anyone can run:
 
-### Performance
-
 * [Network](https://www.npmjs.com/package/@passmarked/network)
 * [Inspect](https://www.npmjs.com/package/@passmarked/inspect)
-
-### Compatibility
-
 * [HTML](https://www.npmjs.com/package/@passmarked/html)
 * [CSS](https://www.npmjs.com/package/@passmarked/css)
 * [Javascript](https://www.npmjs.com/package/@passmarked/javascript)
 * [Mobile](https://www.npmjs.com/package/@passmarked/mobile)
-
-### SEO
-
 * [Links](https://www.npmjs.com/package/@passmarked/links)
 * [SEO](https://www.npmjs.com/package/@passmarked/seo)
 * [Social](https://www.npmjs.com/package/@passmarked/social)
 * [Spellcheck](https://www.npmjs.com/package/@passmarked/spellcheck)
-
-### Security
-
 * [HTTP](https://www.npmjs.com/package/@passmarked/http)
 * [Malware](https://www.npmjs.com/package/@passmarked/malware)
 * [SSL](https://www.npmjs.com/package/@passmarked/ssl)
