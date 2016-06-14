@@ -66,7 +66,29 @@ passmarked -r google.com,example.com
 
 See `--help` for all available properties and usage information.
 
-## Open Sourced Web Standards
+## Module
+
+The module can also be used as a regular NodeJS module that allows programs to integrate quickly with the Passmarked system.
+
+### API
+
+* [Authentication](https://github.com/passmarked/passmarked/wiki/authentication)
+* [createReport](https://github.com/passmarked/passmarked/wiki/createReport)
+* [getReport](https://github.com/passmarked/passmarked/wiki/getReport)
+* [getWebsites](https://github.com/passmarked/passmarked/wiki/getWebsites)
+* [getProfile](https://github.com/passmarked/passmarked/wiki/getProfile)
+* [getBalance](https://github.com/passmarked/passmarked/wiki/getBalance)
+* [getBalance](https://github.com/passmarked/passmarked/wiki/getBalance)
+
+### Quick start
+
+#### Install
+
+```bash
+npm install --save
+```
+
+#### Run
 
 Passmarked is built to be a framework that can be used by anyone, all our rules that [passmarked.com](https://passmarked.com) checks are open and available for use.
 
@@ -101,10 +123,10 @@ List of provided test suites that anyone can run:
 
 The Passmarked module  also provides a way to easily download and run the tests in your own apps, and even write your own:
 
+Using Promises:
+
 ```javsacript
-// require the main module
 var passmarked = require('passmarked');
-// using promises
 var runner = passmarked.create(
 
   require('@passmarked/network'),
@@ -128,6 +150,11 @@ runner.run({
   console.error(err);
 
 });
+```
+
+Using callbacks:
+
+```javascript
 // using callbacks
 var runner = passmarked.create(
 
@@ -150,28 +177,6 @@ runner.run({
   }
 
 });
-```
-
-## Module
-
-The module can also be used as a regular NodeJS module that allows programs to integrate quickly with the Passmarked system.
-
-### API
-
-* [Authentication](https://github.com/passmarked/passmarked/wiki/authentication)
-* [createReport](https://github.com/passmarked/passmarked/wiki/createReport)
-* [getReport](https://github.com/passmarked/passmarked/wiki/getReport)
-* [getWebsites](https://github.com/passmarked/passmarked/wiki/getWebsites)
-* [getProfile](https://github.com/passmarked/passmarked/wiki/getProfile)
-* [getBalance](https://github.com/passmarked/passmarked/wiki/getBalance)
-* [getBalance](https://github.com/passmarked/passmarked/wiki/getBalance)
-
-### Quick start
-
-#### Install
-
-```bash
-npm install --save
 ```
 
 #### Test a single page
