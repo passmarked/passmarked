@@ -3,7 +3,7 @@
 
 ![NPM](https://img.shields.io/npm/dt/passmarked.svg) [![Build Status](https://travis-ci.org/passmarked/passmarked.svg)](https://travis-ci.org/passmarked/passmarked)
 
-CLI based tool for the [Passmarked](https://passmarked.com) API that can be used for easy integrations and general horse play. Intended to by usable as a simple tool for your development workflow but also usable on services like Jenkins and other CI environments.
+CLI/Module/Framework the [Passmarked](https://passmarked.com) API that can be used for easy integrations and general horse play. Intended to be usable as a simple tool for your development workflow but also usable on services like Jenkins with a API to integrate into your own code. Providing a framework the package also allows any system to run any of the open source [Passmarked](https://passmarked.com) rules directly from your system.
 
 ## Install
 
@@ -79,10 +79,10 @@ List of provided test suites that anyone can run:
 
 ### Compatibility
 
-* [Links](https://www.npmjs.com/package/@passmarked/links)
-* [SEO](https://www.npmjs.com/package/@passmarked/seo)
-* [Social](https://www.npmjs.com/package/@passmarked/social)
-* [Spellcheck](https://www.npmjs.com/package/@passmarked/spellcheck)
+* [HTML](https://www.npmjs.com/package/@passmarked/html)
+* [CSS](https://www.npmjs.com/package/@passmarked/css)
+* [Javascript](https://www.npmjs.com/package/@passmarked/javascript)
+* [Mobile](https://www.npmjs.com/package/@passmarked/mobile)
 
 ### SEO
 
