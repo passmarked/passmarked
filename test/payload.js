@@ -22,6 +22,35 @@ describe('passmarked', function() {
         // create the payload
         var payload   = passmarked.createPayload({
 
+          url:      'http://example.com'
+
+        }, {}, content);
+
+        // check if we got the content
+        if(!payload) assert.fail('Payload was blank');
+        payload.getPageContent(function(err, returnedContent) {
+
+          if(err)
+            assert.fail('Got a error');
+
+          if(returnedContent != content)
+            assert.fail('Page Content was not returned as given');
+
+          // done
+          done();
+
+        });
+
+      });
+
+      it('Should return the given PageContent', function(done) {
+
+        // get the content
+        var content   = '<p>test</p>';
+
+        // create the payload
+        var payload   = passmarked.createPayload({
+
           har:      {},
           body:     content,
           url:      'http://example.com'
@@ -104,6 +133,38 @@ describe('passmarked', function() {
     });
 
     describe('#getHAR', function() {
+
+      it('Should return the given HAR as a object when passed a object', function(done) {
+
+        // get the content
+        var content   = '<p>test</p>';
+
+        // create the payload
+        var payload   = passmarked.createPayload({
+
+          url:      'http://example.com'
+
+        }, { hello: 'world' }, content);
+
+        // check if we got the content
+        if(!payload) assert.fail('Payload was blank');
+        payload.getHAR(function(err, har) {
+
+          if(err)
+            assert.fail('Got a error');
+
+          if(!har)
+            assert.fail('Returned HAR was empty');
+
+          if(har.hello != 'world')
+            assert.fail('Page Content was not returned as given');
+
+          // done
+          done();
+
+        });
+
+      });
 
       it('Should return the given HAR as a object when passed a object', function(done) {
 
