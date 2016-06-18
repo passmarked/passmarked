@@ -427,7 +427,7 @@ describe('passmarked', function() {
 
           url:      'http://example.com'
 
-        }, { hello: 'world' }, content);
+        }, { log: { entries: [], hello: 'world' } }, content);
 
         // check if we got the content
         if(!payload) assert.fail('Payload was blank');
@@ -439,7 +439,7 @@ describe('passmarked', function() {
           if(!har)
             assert.fail('Returned HAR was empty');
 
-          if(har.hello != 'world')
+          if(har.log.hello != 'world')
             assert.fail('Page Content was not returned as given');
 
           // done
@@ -457,11 +457,7 @@ describe('passmarked', function() {
         // create the payload
         var payload   = passmarked.createPayload({
 
-          har:      {
-
-            hello: 'world'
-
-          },
+          har:      { log: { entries: [], hello: 'world' } },
           body:     content,
           url:      'http://example.com'
 
@@ -477,7 +473,7 @@ describe('passmarked', function() {
           if(!har)
             assert.fail('Returned HAR was empty');
 
-          if(har.hello != 'world')
+          if(har.log.hello != 'world')
             assert.fail('Page Content was not returned as given');
 
           // done
@@ -495,11 +491,7 @@ describe('passmarked', function() {
         // create the payload
         var payload   = passmarked.createPayload({
 
-          har:      JSON.stringify({
-
-            hello: 'world'
-
-          }),
+          har:      JSON.stringify({ log: { entries: [], hello: 'world' } }),
           body:     content,
           url:      'http://example.com'
 
@@ -515,7 +507,7 @@ describe('passmarked', function() {
           if(!har)
             assert.fail('Returned HAR was empty');
 
-          if(har.hello != 'world')
+          if(har.log.hello != 'world')
             assert.fail('Page Content was not returned as given');
 
           // done
@@ -533,11 +525,7 @@ describe('passmarked', function() {
         // create the payload
         var payload   = passmarked.createPayload({
 
-          har:      JSON.stringify({
-
-            hello: 'world'
-
-          }),
+          har:      JSON.stringify({ log: { entries: [], hello: 'world' } }),
           body:     content,
           url:      'http://example.com'
 
@@ -553,7 +541,7 @@ describe('passmarked', function() {
           if(!har)
             assert.fail('Returned HAR was empty');
 
-          if(har.hello != 'world')
+          if(har.log.hello != 'world')
             assert.fail('Page Content was not returned as given');
 
           // done
