@@ -12,6 +12,345 @@ describe('passmarked', function() {
 
   describe('payload', function() {
 
+    describe('#getRequest', function() {
+
+      it('Should return the first 200 document', function(done) {
+
+        // create the payload
+        var payload   = passmarked.createPayload({
+
+          url:      'http://example.com'
+
+        }, {
+
+          log: {
+
+            entries: [
+
+              {
+
+                request: {
+
+                  hello: 'world'
+
+                },
+                response: {
+
+                  hello: 'world',
+                  status: 200,
+                  headers: [
+
+                    { name: 'Content-Type', value: 'text/html,charset=utf-8' }
+
+                  ]
+
+                }
+
+              }
+
+            ]
+
+          }
+
+        });
+
+        // check if we got the content
+        if(!payload) assert.fail('Payload was blank');
+
+        // get the entry
+        payload.getRequest(function(err, request) {
+
+          // check for a error
+          if(err) assert.fail('Got a error');
+
+          // check if we got the request
+          if(!request) assert.fail('Could not find the request');
+          if(request.hello != 'world') assert.fail('Did not match the request');
+
+          // done
+          done();
+
+        });
+
+      });
+
+    });
+
+    describe('#getResponse', function() {
+
+      it('Should return the first 200 document', function(done) {
+
+        // create the payload
+        var payload   = passmarked.createPayload({
+
+          url:      'http://example.com'
+
+        }, {
+
+          log: {
+
+            entries: [
+
+              {
+
+                request: {},
+                response: {
+
+                  hello: 'world',
+                  status: 200,
+                  headers: [
+
+                    { name: 'Content-Type', value: 'text/html,charset=utf-8' }
+
+                  ]
+
+                }
+
+              }
+
+            ]
+
+          }
+
+        });
+
+        // check if we got the content
+        if(!payload) assert.fail('Payload was blank');
+
+        // get the entry
+        payload.getResponse(function(err, response) {
+
+          // check for a error
+          if(err) assert.fail('Got a error');
+
+          // check if we got the response
+          if(!response) assert.fail('Could not find the response');
+          if(response.hello != 'world') assert.fail('Did not match the response');
+
+          // done
+          done();
+
+        });
+
+      });
+
+    });
+
+    describe('#getHAREntry', function() {
+
+      it('Should return the first 200 document', function(done) {
+
+        // create the payload
+        var payload   = passmarked.createPayload({
+
+          url:      'http://example.com'
+
+        }, {
+
+          log: {
+
+            entries: [
+
+              {
+
+                request: {},
+                response: {
+
+                  status: 200,
+                  headers: [
+
+                    { name: 'Content-Type', value: 'text/html,charset=utf-8' }
+
+                  ]
+
+                }
+
+              }
+
+            ]
+
+          }
+
+        });
+
+        // check if we got the content
+        if(!payload) assert.fail('Payload was blank');
+
+        // get the entry
+        payload.getDocument(function(err, entry) {
+
+          // check for a error
+          if(err) assert.fail('Got a error');
+
+          // check if we got the entry
+          if(!entry) assert.fail('Could not find the document');
+
+          // done
+          done();
+
+        });
+
+      });
+
+      it('Should return the first 200 document after a redirect (302)', function(done) {
+
+        // create the payload
+        var payload   = passmarked.createPayload({
+
+          url:      'http://example.com'
+
+        }, {
+
+          log: {
+
+            entries: [
+
+              {
+
+                request: {},
+                response: {
+
+                  status: 302,
+                  headers: [
+
+                    { name: 'Content-Type', value: 'text/html,charset=utf-8' }
+
+                  ]
+
+                }
+
+              },
+              {
+
+                request: {},
+                response: {
+
+                  status: 200,
+                  headers: [
+
+                    { name: 'Content-Type', value: 'text/html,charset=utf-8' }
+
+                  ]
+
+                }
+
+              }
+
+            ]
+
+          }
+
+        });
+
+        // check if we got the content
+        if(!payload) assert.fail('Payload was blank');
+
+        // get the entry
+        payload.getDocument(function(err, entry) {
+
+          // check for a error
+          if(err) assert.fail('Got a error');
+
+          // check if we got the entry
+          if(!entry) assert.fail('Could not find the document');
+
+          // done
+          done();
+
+        });
+
+      });
+
+      it('Should return a error if no entry was found', function(done) {
+
+        // create the payload
+        var payload   = passmarked.createPayload({
+
+          url:      'http://example.com'
+
+        }, {
+
+          log: {
+
+            entries: [
+
+              {
+
+                request: {},
+                response: {
+
+                  status: 404,
+                  headers: [
+
+                    { name: 'Content-Type', value: 'text/html,charset=utf-8' }
+
+                  ]
+
+                }
+
+              }
+
+            ]
+
+          }
+
+        });
+
+        // check if we got the content
+        if(!payload) assert.fail('Payload was blank');
+
+        // get the entry
+        payload.getDocument(function(err, entry) {
+
+          // check for a error
+          if(!err) assert.fail('Was expecting a error');
+
+          // check if we got the entry
+          if(entry) assert.fail('Returned entry should be not be returned');
+
+          // done
+          done();
+
+        });
+
+      });
+
+    });
+
+    describe('#getMappedHeaders', function() {
+
+      it('Should return the configured header', function(done) {
+
+        // create the payload
+        var payload   = passmarked.createPayload({
+
+          url:      'http://example.com'
+
+        });
+
+        // check if we got the content
+        if(!payload) assert.fail('Payload was blank');
+        var headers = payload.getMappedHeaders([
+
+          { name: 'test', value: 'test' },
+          { name: 'test2', value: 'test' },
+          { name: 'test3', value: 'test' },
+          { name: 'test4', value: 'test' }
+
+        ]);
+
+        if(!headers['test']) assert.fail('Was missing a key');
+        if(!headers['test2']) assert.fail('Was missing a key');
+        if(!headers['test3']) assert.fail('Was missing a key');
+        if(!headers['test4']) assert.fail('Was missing a key');
+
+        // done
+        done();
+
+      });
+
+    });
+
     describe('#getPageContent', function() {
 
       it('Should return the given PageContent', function(done) {
