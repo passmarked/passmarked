@@ -413,62 +413,6 @@ describe('passmarked', function() {
 
       });
 
-      it('Should return a error if the content was undefined', function(done) {
-
-        // create the payload
-        var payload   = passmarked.createPayload({
-
-          har:      {},
-          body:     null,
-          url:      'http://example.com'
-
-        });
-
-        // check if we got the content
-        if(!payload) assert.fail('Payload was blank');
-        payload.getPageContent(function(err, returnedContent) {
-
-          if(!err)
-            assert.fail('Was expecting a error for undefined content');
-
-          // done
-          done();
-
-        });
-
-      });
-
-      /*** it('Should not return a error if content was just blank', function(done) {
-
-        // get the content
-        var content   = '';
-
-        // create the payload
-        var payload   = passmarked.createPayload({
-
-          har:      {},
-          body:     content,
-          url:      'http://example.com'
-
-        });
-
-        // check if we got the content
-        if(!payload) assert.fail('Payload was blank');
-        payload.getPageContent(function(err, returnedContent) {
-
-          if(err)
-            assert.fail('Got a error');
-
-          if(returnedContent != '')
-            assert.fail('Page Content was not returned as given');
-
-          // done
-          done();
-
-        });
-
-      }); ***/
-
     });
 
     describe('#getHAR', function() {
@@ -611,37 +555,6 @@ describe('passmarked', function() {
 
           if(har.hello != 'world')
             assert.fail('Page Content was not returned as given');
-
-          // done
-          done();
-
-        });
-
-      });
-
-      it('Should return a error if HAR given was not valid', function(done) {
-
-        // get the content
-        var content   = '<p>test</p>';
-
-        // create the payload
-        var payload   = passmarked.createPayload({
-
-          har:      'all is one, one is all',
-          body:     content,
-          url:      'http://example.com'
-
-        });
-
-        // check if we got the content
-        if(!payload) assert.fail('Payload was blank');
-        payload.getHAR(function(err, har) {
-
-          if(!err)
-            assert.fail('Was expecting a error');
-
-          if(har)
-            assert.fail('Was not expecting a har');
 
           // done
           done();
