@@ -261,7 +261,7 @@ describe('passmarked', function() {
 
       });
 
-      it('Should return a error if no entry was found', function(done) {
+      it('Should not return a error if no entry was found', function(done) {
 
         // create the payload
         var payload   = passmarked.createPayload({
@@ -303,7 +303,7 @@ describe('passmarked', function() {
         payload.getDocument(function(err, entry) {
 
           // check for a error
-          if(!err) assert.fail('Was expecting a error');
+          if(err) assert.fail('Was not expecting a error');
 
           // check if we got the entry
           if(entry) assert.fail('Returned entry should be not be returned');
