@@ -12,6 +12,129 @@ describe('passmarked', function() {
 
   describe('payload', function() {
 
+    describe('#set', function() {
+
+      it('Should set a item in the cache with the key "hello"', function(done) {
+
+        // create the payload
+        var payload   = passmarked.createPayload({
+
+          url:      'http://example.com'
+
+        });
+
+        // check if we got the content
+        if(!payload) assert.fail('Payload was blank');
+
+        // should 
+        payload.set('hello', 'world', function(err) {
+
+          // no error should be returned from the default in memory set
+          if(err) assert.fail('got a error trying to set the value');
+
+          // get the entry
+          payload.get('hello', function(err, value) {
+
+            // check for a error
+            if(err) assert.fail('Got a error');
+
+            // check if we got the response
+            if(!value) assert.fail('Could not find the response');
+            if(value != 'world') assert.fail('Did not match the response');
+
+            // done
+            done();
+
+          });
+
+        });
+
+      });
+
+      it('Should set a item in the cache with the key "hello"', function(done) {
+
+        // create the payload
+        var payload   = passmarked.createPayload({
+
+          url:      'http://example.com'
+
+        });
+
+        // check if we got the content
+        if(!payload) assert.fail('Payload was blank');
+
+        // should 
+        payload.set('hello', 'world', function(err) {
+
+          // no error should be returned from the default in memory set
+          if(err) assert.fail('got a error trying to set the value');
+
+          // get the entry
+          payload.get('hello', function(err, value) {
+
+            // check for a error
+            if(err) assert.fail('Got a error');
+
+            // check if we got the response
+            if(!value) assert.fail('Could not find the response');
+            if(value != 'world') assert.fail('Did not match the response');
+
+            // done
+            done();
+
+          });
+
+        });
+
+      });
+
+    });
+
+    describe('#get', function() {
+
+      it('Should return a cached item that was set', function(done) {
+
+        // create the payload
+        var payload   = passmarked.createPayload({
+
+          url:      'http://example.com'
+
+        });
+
+        // check if we got the content
+        if(!payload) assert.fail('Payload was blank');
+
+        // should 
+        payload.set({
+
+          hello:  'world'
+
+        }, function(err) {
+
+          // no error should be returned from the default in memory set
+          if(err) assert.fail('got a error trying to set the value');
+
+          // get the entry
+          payload.get('hello', function(err, value) {
+
+            // check for a error
+            if(err) assert.fail('Got a error');
+
+            // check if we got the response
+            if(!value) assert.fail('Could not find the response');
+            if(value != 'world') assert.fail('Did not match the response');
+
+            // done
+            done();
+
+          });
+
+        });
+
+      });
+
+    });
+
     describe('#getRequest', function() {
 
       it('Should return the first 200 document', function(done) {
