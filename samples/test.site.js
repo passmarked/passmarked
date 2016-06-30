@@ -1,5 +1,5 @@
 var passmarked = require('passmarked');
-var report = passmarked.createReport({
+var report = passmarked.create({
 
   url:         'http://example.com',
   token:       '<token>',

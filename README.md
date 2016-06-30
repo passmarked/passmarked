@@ -31,10 +31,6 @@ Then you are able to execute the utility using:
 ./index --help
 ```
 
-## Under active development
-
-We aim to have a version ready for production use end of June 2016. In the mean time feel free to contribute.
-
 ## Terminal Usage
 
 ```bash

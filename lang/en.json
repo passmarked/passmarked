@@ -3,5 +3,6 @@
   "ERROR_INVALID_DOMAIN": "Invalid Domain",
   "ERROR_IP_LOCALHOST": "Cannot test localhost / loopback address",
   "ERROR_IP_LOCALNET": "Cannot test local network",
-  "ERROR_CALLBACK_REQUIRED": "Callback is required but not found"
+  "ERROR_CALLBACK_REQUIRED": "Callback is required but not found",
+  "ERROR_ALREADY_STARTED": "Report has already been started"
 }

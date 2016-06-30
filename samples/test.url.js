@@ -1,6 +1,6 @@
 var passmarked = require('passmarked');
 // create and run a report, waiting for it to finish
-var report = passmarked.createReport({
+var report = passmarked.create({
 
   url:     'http://example.com',
   token:   '<token>'
