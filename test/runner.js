@@ -12,13 +12,13 @@ describe('passmarked', function() {
 
   describe('runner', function() {
 
-    describe('#create', function() {
+    describe('#createRunner', function() {
 
       it('Should run one function and return as a callback', function(done) {
 
         var counter = 0;
 
-        var runner = passmarked.create([
+        var runner = passmarked.createRunner([
 
           function(payload, cb) {
 
@@ -58,7 +58,7 @@ describe('passmarked', function() {
 
         var counter = 0;
 
-        var runner = passmarked.create([
+        var runner = passmarked.createRunner([
 
           function(payload, cb) {
 
@@ -98,7 +98,7 @@ describe('passmarked', function() {
 
         var counter = 0;
 
-        var runner = passmarked.create([
+        var runner = passmarked.createRunner([
 
           function(payload, cb) {
 
@@ -140,7 +140,7 @@ describe('passmarked', function() {
 
         var counter = 0;
 
-        var runner = passmarked.create([
+        var runner = passmarked.createRunner([
 
           function(payload, cb) {
 
