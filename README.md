@@ -69,12 +69,12 @@ The module can also be used as a regular NodeJS module that allows programs to i
 ### API
 
 * [Authentication](https://github.com/passmarked/passmarked/wiki/authentication)
-* [createReport](https://github.com/passmarked/passmarked/wiki/createReport)
-* [getReport](https://github.com/passmarked/passmarked/wiki/getReport)
-* [getWebsites](https://github.com/passmarked/passmarked/wiki/getWebsites)
-* [getProfile](https://github.com/passmarked/passmarked/wiki/getProfile)
-* [getBalance](https://github.com/passmarked/passmarked/wiki/getBalance)
-* [run](https://github.com/passmarked/passmarked/wiki/run)
+* [create](https://github.com/passmarked/passmarked/wiki/create)
+* [getReport](https://github.com/passmarked/passmarked/wiki/report)
+* [getWebsites](https://github.com/passmarked/passmarked/wiki/websites)
+* [getProfile](https://github.com/passmarked/passmarked/wiki/profile)
+* [getBalance](https://github.com/passmarked/passmarked/wiki/balance)
+* [createRunner](https://github.com/passmarked/passmarked/wiki/runner)
 
 ### Quick start
 
@@ -84,95 +84,15 @@ The module can also be used as a regular NodeJS module that allows programs to i
 npm install --save
 ```
 
-#### Run
-
-Passmarked is built to be a framework that can be used by anyone, all our rules that [passmarked.com](https://passmarked.com) checks are open and available for use.
-
-List of provided test suites that anyone can run:
-
-* [Network](https://www.npmjs.com/package/@passmarked/network)
-* [Inspect](https://www.npmjs.com/package/@passmarked/inspect)
-* [HTML](https://www.npmjs.com/package/@passmarked/html)
-* [CSS](https://www.npmjs.com/package/@passmarked/css)
-* [Javascript](https://www.npmjs.com/package/@passmarked/javascript)
-* [Mobile](https://www.npmjs.com/package/@passmarked/mobile)
-* [Links](https://www.npmjs.com/package/@passmarked/links)
-* [SEO](https://www.npmjs.com/package/@passmarked/seo)
-* [Social](https://www.npmjs.com/package/@passmarked/social)
-* [Spellcheck](https://www.npmjs.com/package/@passmarked/spellcheck)
-* [HTTP](https://www.npmjs.com/package/@passmarked/http)
-* [Malware](https://www.npmjs.com/package/@passmarked/malware)
-* [SSL](https://www.npmjs.com/package/@passmarked/ssl)
-
-> Wrote your own ? Open a PR on the [Passmarked](https://github.com/passmarked/passmarked) repo with your new worker added to the list.
-
-The Passmarked module  also provides a way to easily download and run the tests in your own apps, and even write your own:
-
-Using Promises:
-
-```javsacript
-var passmarked = require('passmarked');
-var runner = passmarked.create(
-
-  require('@passmarked/network'),
-  require('@passmarked/inspect')
-
-);
-runner.run({
-
-  url: 'http://example.com'
-
-}).then(function(rules) {
-
-  for(var i = 0; i < rules.length; i++) {
-
-    console.log('* ' + rules[i].getMessage());
-
-  }
-
-}).catch(function(err) {
-
-  console.error(err);
-
-});
-```
-
-Using callbacks:
-
-```javascript
-// using callbacks
-var runner = passmarked.create(
-
-  require('@passmarked/network'),
-  require('@passmarked/inspect')
-
-);
-runner.run({
-
-  url: 'http://example.com'
-
-}, function(err, rules) {
-
-  console.error(err);
-
-  for(var i = 0; i < rules.length; i++) {
-
-    console.log('* ' + rules[i].getMessage());
-
-  }
-
-});
-```
-
 #### Test a single page
 
-Run a single page and return all issues and information gathered from the page.
+Run a single page and return all issues and information gathered from the page. See the [wiki](https://github.com/passmarked/passmarked/wiki/Create) for details on the API and [events](https://github.com/passmarked/passmarked/wiki/events) for information on [realtime events](https://github.com/passmarked/passmarked/wiki/events).
 
 ```javascript
 var passmarked = require('passmarked');
 
 // create and run a report, waiting for it to finish
-var report = passmarked.createReport({
+var report = passmarked.create({
 
   url:     'http://example.com',
   token:   '<token>'
@@ -209,7 +129,7 @@ report.start(function(err) {
 
 #### Run a recursive report over a entire domain
 
-Example running a site wide report, requested websites must be registered on [passmarked.com](http://passmarked.com)
+Example running a site wide report, requested websites must be registered on [passmarked.com](http://passmarked.com). See the [wiki](https://github.com/passmarked/passmarked/wiki/Create) for details on the API and [events](https://github.com/passmarked/passmarked/wiki/events) for information on [realtime events](https://github.com/passmarked/passmarked/wiki/events).
 
 ```javascript
 // create and run a report, waiting for it to finish
@@ -293,6 +213,86 @@ passmarked.getWebsites(<token>, function(err, websites) {
 });
 ```
 
+#### Run selected tests locally
+
+Passmarked is built to be a framework that can be used by anyone, all our rules that [passmarked.com](https://passmarked.com) checks are open and available for use.
+
+List of provided tests that anyone can run:
+
+* [Network](https://www.npmjs.com/package/@passmarked/network)
+* [Inspect](https://www.npmjs.com/package/@passmarked/inspect)
+* [HTML](https://www.npmjs.com/package/@passmarked/html)
+* [CSS](https://www.npmjs.com/package/@passmarked/css)
+* [Javascript](https://www.npmjs.com/package/@passmarked/javascript)
+* [Mobile](https://www.npmjs.com/package/@passmarked/mobile)
+* [Links](https://www.npmjs.com/package/@passmarked/links)
+* [SEO](https://www.npmjs.com/package/@passmarked/seo)
+* [Social](https://www.npmjs.com/package/@passmarked/social)
+* [Spellcheck](https://www.npmjs.com/package/@passmarked/spellcheck)
+* [HTTP](https://www.npmjs.com/package/@passmarked/http)
+* [Malware](https://www.npmjs.com/package/@passmarked/malware)
+* [SSL](https://www.npmjs.com/package/@passmarked/ssl)
+
+> Wrote your own ? Open a PR on the [Passmarked](https://github.com/passmarked/passmarked) repo with your new worker added to the list.
+
+The Passmarked module  also provides a way to easily download and run the tests in your own apps, and even write your own:
+
+Using Promises:
+
+```javsacript
+var passmarked = require('passmarked');
+var runner = passmarked.createRunner(
+
+  require('@passmarked/network'),
+  require('@passmarked/inspect')
+
+);
+runner.run({
+
+  url: 'http://example.com'
+
+}).then(function(rules) {
+
+  for(var i = 0; i < rules.length; i++) {
+
+    console.log('* ' + rules[i].getMessage());
+
+  }
+
+}).catch(function(err) {
+
+  console.error(err);
+
+});
+```
+
+Using callbacks:
+
+```javascript
+// using callbacks
+var runner = passmarked.createRunner(
+
+  require('@passmarked/network'),
+  require('@passmarked/inspect')
+
+);
+runner.run({
+
+  url: 'http://example.com'
+
+}, function(err, rules) {
+
+  console.error(err);
+
+  for(var i = 0; i < rules.length; i++) {
+
+    console.log('* ' + rules[i].getMessage());
+
+  }
+
+});
+```
+
 ## Contributing
 
 1. Fork the project
@@ -301,7 +301,6 @@ passmarked.getWebsites(<token>, function(err, websites) {
 4. Submit a pull request
 
 We're busy building the tests and refactoring code as we go. If you spot any area that could use help feel free to open a PR.
-
 
 ## License
 
