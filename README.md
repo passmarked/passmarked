@@ -98,16 +98,18 @@ var report = passmarked.create({
   token:   '<token>'
 
 });
-report.on('done', function(err, data) {
+report.on('done', function(result) {
 
-  var result = this.getResult();
+  // or use:
+  // var result = this.getResult();
   console.log('done with a score of ' + result.getScore());
   console.dir(result.toJSON());
 
 });
-report.on('update', function() {
+report.on('update', function(result) {
 
-  var result = this.getResult();
+  // or use:
+  // var result = this.getResult();
   console.log(result.countPendingTests() + "/" + result.countTests());
 
 });
@@ -143,22 +145,41 @@ var report = passmarked.createReport({
   patterns:    [  ]
 
 });
-report.on('done', function(err) {
+report.on('done', function(result) {
 
-  var result = this.getResult();
-  console.log('done with a score of ' + result.getScore() + ' after going through ' + result.countPages() + ' pages');
+  // or use:
+  // var result = this.getResult();
+  console.log('done with a score of ' + 
+                result.getScore() + 
+                  ' after going through ' + 
+                    result.countPages() + 
+                      ' pages');
+
   console.dir(result.toJSON());
 
 });
-report.on('page', function(err, page) {
+report.on('error', function(err) {
 
-  console.log('Processed page - ' + page.getURL() + ' score ' + page.getScore());
+  console.log('Problem starting report:');
+  console.error(err);
 
 });
-report.on('update', function(err) {
+report.on('page', function(page) {
 
-  var result = this.getResult();
-  console.log('pages ' + result.countProcessedPages() + '/' + result.countPages());
+  console.log('Processed page - ' + 
+                page.getURL() + 
+                  ' score ' + 
+                    page.getScore());
+
+});
+report.on('update', function(result) {
+
+  // or use:
+  // var result = this.getResult();
+  console.log('pages ' + 
+                result.countProcessedPages() + 
+                  '/' + 
+                    result.countPages());
 
 });
 report.start(function(err, crawl) {
