@@ -1116,6 +1116,63 @@ describe('passmarked', function() {
 
       });
 
+      it('Should not allow more 50 occurences if 100 are given', function(done) {
+
+        // get the content
+        var content   = '<p>test</p>';
+
+        // create the payload
+        var payload   = passmarked.createPayload({
+
+          har:      {
+
+            hello: 'world'
+
+          },
+          body:     content,
+          url:      'http://example.com'
+
+        });
+
+        // check if we got the content
+        if(!payload) assert.fail('Payload was blank');
+        
+        for(var i = 0; i < 100; i++) {
+
+          payload.addRule({
+
+            type: 'error',
+            message: 'test ' + i,
+            key: 'test'
+
+          }, {
+
+            message: 'test'
+
+          });
+
+        }
+
+        // get the rules
+        var rules = payload.getRules();
+
+        // check the items
+        if(rules.length == 0)
+          assert.fail('No rules are given');
+
+        // check if the count is 2
+        if(rules[0].occurrences.length > 50)
+          assert.fail("Should stop counting at 50");
+
+        // check if the count is 2
+        if(rules[0].count !== 100)
+          assert.fail("Should keep track of current count in seperate variable as a 100");
+
+        // done
+        done();
+
+      });
+
       it('Should return 2 rules if unique keys are given', function(done) {
 
         // get the content
@@ -1185,16 +1242,24 @@ describe('passmarked', function() {
         if(!payload) assert.fail('Payload was blank');
         payload.addRule({
 
-          type: 'error',
-          message: 'test',
-          key: 'test'
+          type:     'error',
+          message:  'test',
+          key:      'test'
+
+        }, {
+
+          message: 'test'
 
         });
         payload.addRule({
 
-          type: 'error',
-          message: 'test',
-          key: 'test'
+          type:     'error',
+          message:  'test',
+          key:      'test'
+
+        }, {
+
+          message: 'test'
 
         });
 
@@ -1211,6 +1276,10 @@ describe('passmarked', function() {
         // check if the count is 2
         if(rule.count != 2)
           assert.fail("Was expecting a count of two on the rule")
+
+        // check if the count is 2
+        if(rule.occurrences.length != 2)
+          assert.fail("Was expecting a array of 2 occurrences")
 
         // done
         done();
