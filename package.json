@@ -14,10 +14,6 @@
     "test": "mocha"
   },
   "author": "Passmarked <info@passmarked.com>",
-  "contributors": [
-    "Ant Cosentino <ant@io.co.za>",
-    "Stephan Bothma <stephan@io.co.za>"
-  ],
   "keywords": [
     "passmarked",
     "performance",
