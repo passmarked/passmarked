@@ -9,7 +9,7 @@ CLI/Module/Framework for the [Passmarked](https://passmarked.com) API that can b
 
 ### NPM
 
-```
+```bash
 npm install -g passmarked
 ```
 
@@ -25,12 +25,6 @@ cd passmarked/
 npm install
 ```
 
-Then you are able to execute the utility using:
-
-```
-./index --help
-```
-
 ## Terminal Usage
 
 ```bash
@@ -40,14 +34,14 @@ Then you are able to execute the utility using:
 passmarked --help
 
 ##
-# test a site
+# test a host
 ##
 passmarked http://example.com
 
 ##
-# test many sites with json output (default delimiter is \n)
+# test many hosts with json output (default delimiter is \n)
 ##
-passmarked --format json --output=outfile.json < mysites.txt
+passmarked --format=json --output=outfile.json < mysites.txt
 
 ##
 # comma-delimited string of addresses
@@ -55,16 +49,14 @@ passmarked --format json --output=outfile.json < mysites.txt
 passmarked google.com,example.com
 
 ##
-# perform a crawl on a registered sites
+# perform a recursive crawl on given hosts
 ##
 passmarked -r google.com,example.com
 ```
 
-See `--help` for all available properties and usage information.
-
 ## Module
 
-The module can also be used as a regular NodeJS module that allows programs to integrate quickly with the Passmarked system.
+The module can also be used as a regular module that allows programs to integrate with the Passmarked system.
 
 ### API
 
@@ -76,9 +68,9 @@ The module can also be used as a regular NodeJS module that allows programs to i
 * [getBalance](https://github.com/passmarked/passmarked/wiki/balance)
 * [createRunner](https://github.com/passmarked/passmarked/wiki/runner)
 
-### Quick start
+## Quick start
 
-#### Install
+### Install
 
 ```bash
 npm install --save
@@ -89,44 +81,28 @@ npm install --save
 Run a single page and return all issues and information gathered from the page. See the [wiki](https://github.com/passmarked/passmarked/wiki/Create) for details on the API and [events](https://github.com/passmarked/passmarked/wiki/events) for information on [realtime events](https://github.com/passmarked/passmarked/wiki/events).
 
 ```javascript
-var passmarked = require('passmarked');
-
+var passmarked = require('passmarked')
 // create and run a report, waiting for it to finish
-var report = passmarked.create({
-
+passmarked.create({
   url:     'http://example.com',
   token:   '<token>'
-
-});
-report.on('done', function(result) {
-
+}).on('done', function(result) {
   // or use:
   // var result = this.getResult();
-  console.log('done with a score of ' + result.getScore());
-  console.dir(result.toJSON());
-
-});
-report.on('update', function(result) {
-
+  console.log('done with a score of', result.getScore())
+  console.dir(result.toJSON())
+}).on('update', function(result) {
   // or use:
-  // var result = this.getResult();
-  console.log(result.countPendingTests() + "/" + result.countTests());
-
-});
-report.start(function(err) {
-
-  if(err) {
-
-    console.log('Something went wrong starting the report');
-    console.error(err);
-
+  // var result = this.getResult()
+  console.log(result.countPendingTests() + "/" + result.countTests())
+}).start(function(err) {
+  if (err) {
+    console.log('Something went wrong starting the report')
+    console.error(err)
   } else {
-
-    console.log('Report started');
-
+    console.log('Report started')
   }
-
-});
+})
 ```
 
 #### Run a recursive report over a entire domain
@@ -135,68 +111,48 @@ Example running a site wide report, requested websites must be registered on [pa
 
 ```javascript
 // create and run a report, waiting for it to finish
-var report = passmarked.createReport({
-
+passmarked.create({
   url:         'http://example.com',
   token:       '<token>',
   recursive:   true,
   limit:       50,
   bail:        true,
-  patterns:    [  ]
-
-});
-report.on('done', function(result) {
-
+  patterns:    []
+}).on('done', function(result) {
   // or use:
-  // var result = this.getResult();
-  console.log('done with a score of ' + 
-                result.getScore() + 
-                  ' after going through ' + 
-                    result.countPages() + 
-                      ' pages');
-
-  console.dir(result.toJSON());
-
-});
-report.on('error', function(err) {
-
-  console.log('Problem starting report:');
-  console.error(err);
-
-});
-report.on('page', function(page) {
-
-  console.log('Processed page - ' + 
-                page.getURL() + 
-                  ' score ' + 
-                    page.getScore());
-
-});
-report.on('update', function(result) {
-
+  // var result = this.getResult()
+  console.log(
+    'done with a score of',
+    result.getScore(),
+    'after going through',
+    result.countPages(),
+    'pages'
+  )
+  console.dir(result.toJSON())
+}).on('error', function(err) {
+  console.log('Problem starting report:')
+  console.error(err)
+}).on('page', function(page) {
+  console.log(
+    'Processed page',
+    page.getURL(),
+    'score',
+    page.getScore()
+  )
+}).on('update', function(result) {
   // or use:
-  // var result = this.getResult();
-  console.log('pages ' + 
-                result.countProcessedPages() + 
-                  '/' + 
-                    result.countPages());
-
-});
-report.start(function(err, crawl) {
-
-  if(err) {
-
-    console.log('problem starting the recursive report');
-    console.error(err);
-
+  // var result = this.getResult()
+  console.log('pages', (
+    result.countProcessedPages() + '/' + result.countPages())
+  )
+}).start(function(err, crawl) {
+  if (err) {
+    console.log('problem starting the recursive report')
+    console.error(err)
   } else {
-
-    console.log('crawl started');
-
+    console.log('crawl started')
   }
-
-});
-
+})
 ```
 
 #### Download historical report for a page
@@ -205,14 +161,12 @@ The following shows how to download a single historical report from our archive.
 
 ```javascript
 // return a historical report from the service
-passmarked.getReport('2016049a03452018', function(err, report){
-
+passmarked.getReport('2016049a03452018', function(err, report) {
   // output the report info
-  console.error(err);
-  console.dir(report.getURL());
-  console.dir(report.toJSON());
-
-});
+  console.error(err)
+  console.dir(report.getURL())
+  console.dir(report.toJSON())
+})
 ```
 
 #### Registered websites
@@ -221,17 +175,13 @@ Returns the list of websites that the given token has access to.
 
 ```javascript
 // get the list of registered websites for the user
-passmarked.getWebsites(<token>, function(err, websites) {
-
+passmarked.getWebsites('<token>', function(err, websites) {
   // output information from call
-  console.error(err);
-  for(var i = 0; i < websites.length; i++) {
-
-    console.log('-> ' + websites.getDomain());
-
+  console.error(err)
+  for (var i = 0; i < websites.length; i++) {
+    console.log('->', websites.getDomain())
   }
-
-});
+})
 ```
 
 #### Run selected tests locally
@@ -254,63 +204,40 @@ List of provided tests that anyone can run:
 * [Malware](https://www.npmjs.com/package/@passmarked/malware)
 * [SSL](https://www.npmjs.com/package/@passmarked/ssl)
 
-> Wrote your own ? Open a PR on the [Passmarked](https://github.com/passmarked/passmarked) repo with your new worker added to the list.
+> Written your own? Open a PR on the [Passmarked](https://github.com/passmarked/passmarked) repo with your new worker added to the list.
 
-The Passmarked module  also provides a way to easily download and run the tests in your own apps, and even write your own:
+The Passmarked module also provides a way to easily download and run the tests in your own apps, and even write your own:
 
-Using Promises:
+Using promises:
 
 ```javsacript
-var passmarked = require('passmarked');
+var passmarked = require('passmarked')
 var runner = passmarked.createRunner(
-
   require('@passmarked/network'),
   require('@passmarked/inspect')
-
-);
-runner.run({
-
+).run({
   url: 'http://example.com'
-
 }).then(function(rules) {
-
-  for(var i = 0; i < rules.length; i++) {
-
-    console.log('* ' + rules[i].getMessage());
-
+  for (var i = 0; i < rules.length; i++) {
+    console.log('*', rules[i].getMessage())
   }
-
 }).catch(function(err) {
-
-  console.error(err);
-
-});
+  console.error(err)
+})
 ```
 
 Using callbacks:
 
 ```javascript
-// using callbacks
 var runner = passmarked.createRunner(
-
   require('@passmarked/network'),
   require('@passmarked/inspect')
-
-);
-runner.run({
-
+).run({
   url: 'http://example.com'
-
 }, function(err, rules) {
-
-  console.error(err);
-
   for(var i = 0; i < rules.length; i++) {
-
-    console.log('* ' + rules[i].getMessage());
-
+    console.log('*', rules[i].getMessage())
   }
-
 });
 ```
 
