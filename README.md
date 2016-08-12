@@ -160,7 +160,7 @@ Returns the list of websites that the given token has access to.
 passmarked.getWebsites('<token>', function(err, websites) {
   console.error(err)
   for (var i = 0; i < websites.length; i++) {
-    console.log('->', websites.getDomain())
+    console.log('->', websites[i].getDomain())
   }
 })
 ```
