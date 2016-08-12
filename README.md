@@ -208,9 +208,8 @@ The Passmarked module also provides a way to easily download and run the tests i
 
 Using promises:
 
-```javsacript
-var passmarked = require('passmarked')
-var runner = passmarked.createRunner(
+```javascript
+passmarked.createRunner(
   require('@passmarked/network'),
   require('@passmarked/inspect')
 ).run({
@@ -227,7 +226,7 @@ var runner = passmarked.createRunner(
 Using callbacks:
 
 ```javascript
-var runner = passmarked.createRunner(
+passmarked.createRunner(
   require('@passmarked/network'),
   require('@passmarked/inspect')
 ).run({
