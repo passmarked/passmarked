@@ -5,16 +5,18 @@
   "homepage": "http://passmarked.com",
   "preferGlobal": true,
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=0.12"
   },
   "bin": {
     "passmarked": "index"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "coverage": "istanbul cover _mocha --report lcovonly -- test -R spec"
   },
   "author": "Passmarked <info@passmarked.com>",
   "contributors": [
+    "Johann du Toit <johann@io.co.za>",
     "Ant Cosentino <ant@io.co.za>",
     "Stephan Bothma <stephan@io.co.za>"
   ],
@@ -24,8 +26,7 @@
     "pagespeed",
     "security",
     "compatibility",
-    "standards",
-    "passmark"
+    "standards"
   ],
   "license": "Apache-2.0",
   "dependencies": {
