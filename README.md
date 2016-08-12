@@ -73,7 +73,7 @@ The module can also be used as a regular module that allows programs to integrat
 ### Install
 
 ```bash
-npm install --save
+npm install --save passmarked
 ```
 
 #### Test a single page
@@ -94,7 +94,7 @@ passmarked.create({
 }).on('update', function(result) {
   // or use:
   // var result = this.getResult()
-  console.log(result.countPendingTests() + "/" + result.countTests())
+  console.log(result.countPendingTests() + '/' + result.countTests())
 }).start(function(err) {
   if (err) {
     console.log('Something went wrong starting the report')
@@ -130,8 +130,7 @@ passmarked.create({
   )
   console.dir(result.toJSON())
 }).on('error', function(err) {
-  console.log('Problem starting report:')
-  console.error(err)
+  console.log('Problem starting report', err)
 }).on('page', function(page) {
   console.log(
     'Processed page',
@@ -147,8 +146,7 @@ passmarked.create({
   )
 }).start(function(err, crawl) {
   if (err) {
-    console.log('problem starting the recursive report')
-    console.error(err)
+    console.log('problem starting the recursive report', err)
   } else {
     console.log('crawl started')
   }
