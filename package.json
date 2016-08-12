@@ -15,11 +15,6 @@
     "coverage": "istanbul cover _mocha --report lcovonly -- test -R spec"
   },
   "author": "Passmarked <info@passmarked.com>",
-  "contributors": [
-    "Johann du Toit <johann@io.co.za>",
-    "Ant Cosentino <ant@io.co.za>",
-    "Stephan Bothma <stephan@io.co.za>"
-  ],
   "keywords": [
     "passmarked",
     "performance",
