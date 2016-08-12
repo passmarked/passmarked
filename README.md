@@ -28,29 +28,19 @@ npm install
 ## Terminal Usage
 
 ```bash
-##
 # get general help and usage information
-##
 passmarked --help
 
-##
 # test a host
-##
 passmarked http://example.com
 
-##
 # test many hosts with json output (default delimiter is \n)
-##
 passmarked --format=json --output=outfile.json < mysites.txt
 
-##
 # comma-delimited string of addresses
-##
 passmarked google.com,example.com
 
-##
 # perform a recursive crawl on given hosts
-##
 passmarked -r google.com,example.com
 ```
 
@@ -81,8 +71,6 @@ npm install --save passmarked
 Run a single page and return all issues and information gathered from the page. See the [wiki](https://github.com/passmarked/passmarked/wiki/Create) for details on the API and [events](https://github.com/passmarked/passmarked/wiki/events) for information on [realtime events](https://github.com/passmarked/passmarked/wiki/events).
 
 ```javascript
-var passmarked = require('passmarked')
-// create and run a report, waiting for it to finish
 passmarked.create({
   url:     'http://example.com',
   token:   '<token>'
@@ -110,7 +98,6 @@ passmarked.create({
 Example running a site wide report, requested websites must be registered on [passmarked.com](http://passmarked.com). See the [wiki](https://github.com/passmarked/passmarked/wiki/Create) for details on the API and [events](https://github.com/passmarked/passmarked/wiki/events) for information on [realtime events](https://github.com/passmarked/passmarked/wiki/events).
 
 ```javascript
-// create and run a report, waiting for it to finish
 passmarked.create({
   url:         'http://example.com',
   token:       '<token>',
@@ -158,9 +145,7 @@ passmarked.create({
 The following shows how to download a single historical report from our archive.
 
 ```javascript
-// return a historical report from the service
 passmarked.getReport('2016049a03452018', function(err, report) {
-  // output the report info
   console.error(err)
   console.dir(report.getURL())
   console.dir(report.toJSON())
@@ -172,9 +157,7 @@ passmarked.getReport('2016049a03452018', function(err, report) {
 Returns the list of websites that the given token has access to.
 
 ```javascript
-// get the list of registered websites for the user
 passmarked.getWebsites('<token>', function(err, websites) {
-  // output information from call
   console.error(err)
   for (var i = 0; i < websites.length; i++) {
     console.log('->', websites.getDomain())
