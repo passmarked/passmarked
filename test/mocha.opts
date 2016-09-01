@@ -1,2 +1,3 @@
 --check-leaks
 --prof
+--require assert
