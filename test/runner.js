@@ -28,6 +28,21 @@ describe('passmarked', function() {
             if(payload === undefined)
               assert.fail('Payload should not be null');
 
+            payload.addRule({
+
+              key:      'test',
+              message:  'The BIG TEST ...',
+              type:     'error'
+
+            }, {
+
+              message:      'test, $, $ and $',
+              display:      'code',
+              identifiers:  [ 1,2,3 ],
+              tools:        []
+
+            });
+
             // count up one
             counter++;
 
