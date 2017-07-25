@@ -1,4 +1,4 @@
-var passmarked = require('passmarked');
+var passmarked = require('../index.js');
 // create and run a report, waiting for it to finish
 var report = passmarked.create({
 
@@ -11,14 +11,17 @@ report.on('issue', function(err, issue) {
   console.log('Found a issue - ' + issue.message);
 
 });
-report.on('done|end', function(err, data) {
+report.on('done', function(err, data) {
 
-  console.log('done with a score of ' + data.score)
+  var result = report.getResult();
+  console.log('done with a score of ' + result.getScore())
+  process.exit(0)
 
 });
-report.on('progress', function(err, data) {
+report.on('progress', function(err) {
 
-  console.log('done with a score of ' + data.score)
+  var result = report.getResult();
+  console.log('status ' + result.status)
 
 });
 report.start(function(err) {
