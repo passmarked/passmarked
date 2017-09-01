@@ -9,28 +9,30 @@ var report = passmarked.create({
   patterns:    [  ]
 
 });
-report.on('done|end', function(err, crawl) {
+report.on('done', function(result) {
 
-  console.log('done with a score of ' + crawl.score + ' after going through ' + crawl.pages + ' pages');
+  var code = result.getResult();
+
+  if(code == 'success') {
+
+    console.log('done with a score of ' + result.getScore() + ' after going through ' + crawl.getPages() + ' pages')
+
+  } else {
+
+    console.log('failed with the result of: ' + code)
+
+  }
+  
+  process.exit(0)
 
 });
-report.on('page', function(err, page) {
+report.on('error', function(err) {
 
-  console.log('Processed page - ' + page.url + ' score ' + page.score);
-
-});
-report.on('issue', function(err, issue) {
-
-  console.log('Found a issue - ' + issue.message);
-
-});
-report.on('progress', function(err, crawl) {
-
-  console.log('pages ' + crawl.processed + '/' + crawl.pages);
+  console.error(err);
 
 });
 report.start(function(err, crawl) {
 
-  console.log('crawl started');
+  // started
 
 });

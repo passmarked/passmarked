@@ -6,26 +6,30 @@ var report = passmarked.create({
   token:   '<token>'
 
 });
-report.on('issue', function(err, issue) {
+report.on('error', function(err) {
 
-  console.log('Found a issue - ' + issue.message);
+  console.error(err)
 
 });
-report.on('done', function(err, data) {
+report.on('done', function(result) {
 
-  var result = report.getResult();
-  console.log('done with a score of ' + result.getScore())
+  var code = result.getResult();
+
+  if(code == 'success') {
+
+    console.log('done with a score of ' + result.getScore())
+
+  } else {
+
+    console.log('failed with the result of: ' + code)
+
+  }
+  
   process.exit(0)
-
-});
-report.on('progress', function(err) {
-
-  var result = report.getResult();
-  console.log('status ' + result.status)
 
 });
 report.start(function(err) {
 
-  console.log('Report started');
+  // started
 
 });
