@@ -8,7 +8,7 @@
     "node": ">=0.12"
   },
   "bin": {
-    "passmarked": "index"
+    "passmarked": "passmarked"
   },
   "scripts": {
     "test": "mocha",
