@@ -25,22 +25,22 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "async": "^2.5.0",
-    "bufferutil": "^3.0.2",
-    "chalk": "^2.0.1",
+    "async": "^2.6.0",
+    "bufferutil": "^3.0.3",
+    "chalk": "^2.3.0",
     "colors": "^1.1.2",
     "lodash": "^4.17.4",
-    "moment": "^2.18.1",
+    "moment": "^2.19.1",
     "opener": "^1.4.3",
     "os-homedir": "^1.0.2",
-    "request": "^2.81.0",
+    "request": "^2.83.0",
     "sockjs-client": "^1.1.4",
     "string": "^3.3.3",
-    "utf-8-validate": "^3.0.3",
+    "utf-8-validate": "^3.0.4",
     "uuid": "^3.1.0",
-    "validator": "^8.0.0",
-    "ws": "^3.0.0",
-    "yargs": "^8.0.2"
+    "validator": "^9.1.1",
+    "ws": "^3.3.0",
+    "yargs": "^10.0.3"
   },
   "repository": {
     "type": "git",
@@ -51,10 +51,10 @@
     "email": "support@passmarked.com"
   },
   "devDependencies": {
-    "chai": "^4.1.0",
+    "chai": "^4.1.2",
     "codeclimate-test-reporter": "^0.5.0",
     "istanbul": "^0.4.5",
-    "mocha": "^3.4.2",
-    "nock": "^9.0.14"
+    "mocha": "^4.0.1",
+    "nock": "^9.0.28"
   }
 }
