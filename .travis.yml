@@ -4,9 +4,6 @@ env:
 node_js:
   - 'node'
   - '8'
-  - '6'
-  - '5'
-  - '4'
 addons:
   apt:
     sources:
