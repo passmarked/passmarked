@@ -40,7 +40,7 @@ describe('passmarked', function() {
         }
         if(report.getPatterns().length != 0) {
 
-          assert.fail('Paterns should be blank array by default');
+          assert.fail('Patterns should be blank array by default');
 
         }
         done();
