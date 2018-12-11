@@ -26,7 +26,7 @@ describe('passmarked', function() {
         // check if we got the content
         if(!payload) assert.fail('Payload was blank');
 
-        // should 
+        // should
         payload.set('hello', 'world', function(err) {
 
           // no error should be returned from the default in memory set
@@ -63,7 +63,7 @@ describe('passmarked', function() {
         // check if we got the content
         if(!payload) assert.fail('Payload was blank');
 
-        // should 
+        // should
         payload.set('hello', 'world', function(err) {
 
           // no error should be returned from the default in memory set
@@ -104,7 +104,7 @@ describe('passmarked', function() {
         // check if we got the content
         if(!payload) assert.fail('Payload was blank');
 
-        // should 
+        // should
         payload.set({
 
           hello:  'world'
@@ -1116,7 +1116,7 @@ describe('passmarked', function() {
 
       });
 
-      it('Should not allow more 50 occurences if 100 are given', function(done) {
+      it('Should not allow more 50 occurrences if 100 are given', function(done) {
 
         // get the content
         var content   = '<p>test</p>';
@@ -1136,7 +1136,7 @@ describe('passmarked', function() {
 
         // check if we got the content
         if(!payload) assert.fail('Payload was blank');
-        
+
         for(var i = 0; i < 100; i++) {
 
           payload.addRule({
@@ -1166,7 +1166,7 @@ describe('passmarked', function() {
 
         // check if the count is 2
         if(rules[0].count !== 100)
-          assert.fail("Should keep track of current count in seperate variable as a 100");
+          assert.fail("Should keep track of current count in separate variable as a 100");
 
         // done
         done();
